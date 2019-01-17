@@ -1,6 +1,6 @@
-document.getElementById("Obstknopf").onclick = function() {haltStop()};
+/*document.getElementById("Obstknopf").onclick = function() {haltStop()};*/
 
 function haltStop() {
-  document.getElementById("Obstknopf").innerHTML="Oberzickä";
+  document.getElementById("Obstknopf").innerText="Oberzickä";
   
 }
