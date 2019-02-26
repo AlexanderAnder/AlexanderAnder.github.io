@@ -43,7 +43,7 @@ function updateGameArea() {
 }
 
 function deviceOrientationListener(event) {
-	myGamePiece.speedX = event.alpha/10;
+	myGamePiece.speedX = event.alpha/100;
 }
 
  if (window.DeviceOrientationEvent) {
