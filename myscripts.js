@@ -1,7 +1,5 @@
 
 function startGame() {
-	let sensor = new Accelerometer();
-    sensor.start();
     myGameArea.start();
 	myGamePiece = new component(10,10,"blue", (myGameArea.canvas.width)/2, 10);
 }
@@ -39,8 +37,18 @@ this.update = function(){
 
 function updateGameArea() {
   myGameArea.clear();
-  myGamePiece.speedX = sensor.x;
+  
   myGamePiece.newPos();
   myGamePiece.update();
 }
 
+function deviceOrientationListener(event) {
+	myGamePiece.speedX = event.alpha;
+}
+
+ if (window.DeviceOrientationEvent) {
+        window.addEventListener("deviceorientation", deviceOrientationListener);
+      } else {
+        alert("Sorry, your browser doesn't support Device Orientation");
+      }
+	  
