@@ -1,7 +1,7 @@
 
 function startGame() {
     myGameArea.start();
-	myGamePiece = new component(10,10,"blue", (myGameArea.canvas.width)/2, 10);
+	myGamePiece = new component(30,30,"blue", (myGameArea.canvas.width)/2, 10);
 }
 
 var myGameArea = {
@@ -43,7 +43,7 @@ function updateGameArea() {
 }
 
 function deviceOrientationListener(event) {
-	myGamePiece.speedX = event.alpha/100;
+	myGamePiece.speedX = event.gamma/10;
 }
 
  if (window.DeviceOrientationEvent) {
