@@ -37,11 +37,25 @@ this.update = function(){
     this.x += this.speedX;
     this.y += this.speedY + this.gravitySpeed;
 	this.hitBottom();
+	this.hitLeft();
+	this.hitRight();
   } 
   this.hitBottom = function() {
     var rockbottom = myGameArea.canvas.height - this.height;
     if (this.y > rockbottom) {
       this.y = rockbottom;
+    }
+  }
+  this.hitLeft = function() {
+    var leftEdge = this.width;
+    if (this.x < leftEdge) {
+      this.x = leftEdge;
+    }
+  }
+  this.hitRight = function() {
+    var rightEdge = myGameArea.canvas.width - this.width;
+    if (this.x > rightEdge) {
+      this.x = rightEdge;
     }
   }
 }
