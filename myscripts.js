@@ -8,7 +8,7 @@ var myGameArea = {
   canvas : document.createElement("canvas"),
   start : function() {
     this.canvas.width = window.innerWidth*devicePixelRatio;
-    this.canvas.height = window.innerHeight*devicePixelRatio;
+    this.canvas.height = window.innerHeight*devicePixelRatio-50;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
@@ -38,7 +38,7 @@ this.update = function(){
 	this.hitBottom();
   } 
   this.hitBottom = function() {
-    var rockbottom = myGameArea.canvas.height - this.height - myGamePiece.height/2;
+    var rockbottom = myGameArea.canvas.height - this.height;
     if (this.y > rockbottom) {
       this.y = rockbottom;
     }
