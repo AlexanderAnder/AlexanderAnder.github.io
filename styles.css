@@ -4,7 +4,6 @@ html, body {
 }
 
 canvas {
- padding-left: 0;
- padding-right: 0;
+ position: absolute;
  background-color: silver;
 }
