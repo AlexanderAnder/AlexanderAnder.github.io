@@ -6,7 +6,5 @@ html, body {
 canvas {
  padding-left: 0;
  padding-right: 0;
- height:100;
- wifth: 100;
  background-color: silver;
 }
