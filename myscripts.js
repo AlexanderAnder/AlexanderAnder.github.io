@@ -22,6 +22,8 @@ function component(width, height, color, x, y) {
     this.height = height;
 	this.speedX=0;
 	this.speedY=0;
+    this.gravity = 0.05;
+    this.gravitySpeed = 0;
     this.x = x;
     this.y = y;  
 this.update = function(){	
@@ -30,20 +32,27 @@ this.update = function(){
     ctx.fillRect(this.x, this.y, this.width, this.height);
  }
  this.newPos = function() {
+	this.gravitySpeed += gravity;
     this.x += this.speedX;
-    this.y += this.speedY;
+    this.y += this.speedY + this.gravitySpeed;
+	this.hitBottom;
   } 
+  this.hitBottom = function() {
+    var rockbottom = myGameArea.canvas.height - this.height;
+    if (this.y > rockbottom) {
+      this.y = rockbottom;
+    }
+  }
 }
 
 function updateGameArea() {
   myGameArea.clear();
-  
   myGamePiece.newPos();
   myGamePiece.update();
 }
 
 function deviceOrientationListener(event) {
-	myGamePiece.speedX = event.gamma/10;
+	myGamePiece.speedX = event.gamma/2;
 }
 
  if (window.DeviceOrientationEvent) {
