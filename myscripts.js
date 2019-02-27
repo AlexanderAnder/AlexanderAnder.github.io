@@ -32,7 +32,7 @@ this.update = function(){
     ctx.fillRect(this.x, this.y, this.width, this.height);
  }
  this.newPos = function() {
-	this.gravitySpeed += gravity;
+	this.gravitySpeed += this.gravity;
     this.x += this.speedX;
     this.y += this.speedY + this.gravitySpeed;
 	this.hitBottom;
