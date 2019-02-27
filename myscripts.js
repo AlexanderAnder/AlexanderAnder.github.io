@@ -1,8 +1,8 @@
 
 function startGame() {
-	screen.orientation.lock(); 
+	
     myGameArea.start();
-	myGamePiece = new component(30,30,"blue", (myGameArea.canvas.width)/2, 10);
+	myGamePiece = new component(30,30,"blue", (myGameArea.canvas.width)/2,0);
 }
 
 var myGameArea = {
@@ -18,6 +18,7 @@ var myGameArea = {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 }
+
 function component(width, height, color, x, y) {
     this.width = width;
     this.height = height;
@@ -27,11 +28,13 @@ function component(width, height, color, x, y) {
     this.gravitySpeed = 0;
     this.x = x;
     this.y = y;  
+	
 this.update = function(){	
     ctx = myGameArea.context;
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
  }
+ 
  this.newPos = function() {
 	this.gravitySpeed += this.gravity;
     this.x += this.speedX;
@@ -39,7 +42,8 @@ this.update = function(){
 	this.hitBottom();
 	this.hitLeft();
 	this.hitRight();
-  } 
+  }
+  
   this.hitBottom = function() {
     var rockbottom = myGameArea.canvas.height - this.height;
     if (this.y > rockbottom) {
@@ -47,7 +51,7 @@ this.update = function(){
     }
   }
   this.hitLeft = function() {
-    var leftEdge = this.width;
+    var leftEdge = 0;
     if (this.x < leftEdge) {
       this.x = leftEdge;
     }
