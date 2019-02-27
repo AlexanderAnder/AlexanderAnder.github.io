@@ -1,6 +1,8 @@
 
+var elem = document.documentElement;
+
 function startGame() {
-	
+	openFullscreen();
     myGameArea.start();
 	myGamePiece = new component(30,30,"blue", (myGameArea.canvas.width)/2,0);
 }
@@ -79,8 +81,18 @@ function deviceOrientationListener(event) {
       } else {
         alert("Sorry, your browser doesn't support Device Orientation");
       }
-	  
-if(window.innerHeight > window.innerWidth){
-  alert("Please use Portrait mode");
-}	  
-	  
+	  	  
+
+
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+}
+		  
