@@ -7,8 +7,8 @@ function startGame() {
 var myGameArea = {
   canvas : document.createElement("canvas"),
   start : function() {
-    this.canvas.width = 500;
-    this.canvas.height = 1000;
+    this.canvas.width = window.innerWidth*devicePixelRatio;
+    this.canvas.height = window.innerHeight*devicePixelRatio;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
@@ -35,10 +35,10 @@ this.update = function(){
 	this.gravitySpeed += this.gravity;
     this.x += this.speedX;
     this.y += this.speedY + this.gravitySpeed;
-	this.hitBottom;
+	this.hitBottom();
   } 
   this.hitBottom = function() {
-    var rockbottom = myGameArea.canvas.height - this.height;
+    var rockbottom = myGameArea.canvas.height - this.height - myGamePiece.height/2;
     if (this.y > rockbottom) {
       this.y = rockbottom;
     }
@@ -52,7 +52,7 @@ function updateGameArea() {
 }
 
 function deviceOrientationListener(event) {
-	myGamePiece.speedX = event.gamma/2;
+	myGamePiece.speedX = event.gamma/3;
 }
 
  if (window.DeviceOrientationEvent) {
