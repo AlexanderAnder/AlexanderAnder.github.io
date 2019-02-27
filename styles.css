@@ -9,7 +9,3 @@ canvas {
  display: block;
  background-color: silver;
 }
-
-@media (orientation: landscape) {
-    body { background-color: black; }
- }
