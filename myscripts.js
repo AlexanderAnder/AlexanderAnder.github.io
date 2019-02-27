@@ -2,7 +2,6 @@
 var elem = document.documentElement;
 
 function startGame() {
-	document.body.style.zoom = 0.5;
 	openFullscreen();
     myGameArea.start();
 	myGamePiece = new component(30,30,"blue", (myGameArea.canvas.width)/2,0);
