@@ -80,3 +80,7 @@ function deviceOrientationListener(event) {
         alert("Sorry, your browser doesn't support Device Orientation");
       }
 	  
+if(window.innerHeight > window.innerWidth){
+  alert("Please use Portrait mode");
+}	  
+	  
