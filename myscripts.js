@@ -1,6 +1,4 @@
 
-var elem = document.documentElement;
-
 function startGame() {
     myGameArea.start();
 	myGamePiece = new component(30,30,"blue", (myGameArea.canvas.width)/2,0);
@@ -81,3 +79,15 @@ function deviceOrientationListener(event) {
         alert("Sorry, your browser doesn't support Device Orientation");
       }
 	  	  
+function fullscreen(){
+        var el = myGameArea.canvas;
+
+           if(el.webkitRequestFullScreen) {
+               el.webkitRequestFullScreen();
+           }
+          else {
+             el.mozRequestFullScreen();
+          }            
+        }
+
+    myGameArea.canvas.addEventListener("click",fullscreen)
