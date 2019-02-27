@@ -1,5 +1,6 @@
 
 function startGame() {
+	screen.orientation.lock(); 
     myGameArea.start();
 	myGamePiece = new component(30,30,"blue", (myGameArea.canvas.width)/2, 10);
 }
@@ -8,7 +9,7 @@ var myGameArea = {
   canvas : document.createElement("canvas"),
   start : function() {
     this.canvas.width = window.innerWidth*devicePixelRatio;
-    this.canvas.height = window.innerHeight*devicePixelRatio-50;
+    this.canvas.height = window.innerHeight*devicePixelRatio-10;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
