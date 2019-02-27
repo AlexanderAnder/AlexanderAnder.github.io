@@ -2,7 +2,7 @@
 var elem = document.documentElement;
 
 function startGame() {
-	openFullscreen();
+	//openFullscreen();
     myGameArea.start();
 	myGamePiece = new component(30,30,"blue", (myGameArea.canvas.width)/2,0);
 }
@@ -84,15 +84,15 @@ function deviceOrientationListener(event) {
 	  	  
 
 
-function openFullscreen() {
+/**function openFullscreen() {
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
   } else if (elem.mozRequestFullScreen) { /* Firefox */
-    elem.mozRequestFullScreen();
+ /**   elem.mozRequestFullScreen();
   } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-    elem.webkitRequestFullscreen();
+  /**  elem.webkitRequestFullscreen();
   } else if (elem.msRequestFullscreen) { /* IE/Edge */
-    elem.msRequestFullscreen();
+  /**  elem.msRequestFullscreen();
   }
 }
-		  
+	*/	  
