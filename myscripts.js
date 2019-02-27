@@ -7,8 +7,33 @@ function startGame() {
 var myGameArea = {
   canvas : document.createElement("canvas"),
   start : function() {
-    this.canvas.width = window.innerWidth*devicePixelRatio;
-    this.canvas.height = window.innerHeight*devicePixelRatio-10;
+	  
+	   var width = this.canvas.width;
+            var height = this.canvas.height;        
+            //canvas.webkitRequestFullScreen();                
+			ratio = width / height;
+            //Höhe und Breite passend zum Seitenverhältnis
+
+            var heightval;
+            var widthval;
+			//innerWidth/innerHeight < 4:3
+			if ((innerWidth / innerHeight) < ratio) {
+				//Scrollbalken verhindern => -16
+				widthval = window.innerWidth - 16;
+				heightval = (widthval / ratio) - 16;
+                this.canvas.style.height = heightval + "px";
+                this.canvas.style.width = widthval + "px";
+            //innerWidth/innerHeight >= 4:3
+			} else {
+				heightval = window.innerHeight - 16;
+				widthval = (heightval * ratio) - 16;
+                this.canvas.style.height = heightval + "px";
+                this.canvas.style.width = widthval + "px";
+			}		
+
+
+   // this.canvas.width = window.innerWidth*devicePixelRatio;
+    //this.canvas.height = window.innerHeight*devicePixelRatio-10;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
