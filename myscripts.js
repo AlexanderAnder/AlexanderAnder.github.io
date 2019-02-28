@@ -81,14 +81,17 @@ function deviceOrientationListener(event) {
       }
 	  	  
 function fullscreen(){
-        var el = myGameArea.canvas;
+        var el = document.documentElement;
 
            if(el.webkitRequestFullScreen) {
                el.webkitRequestFullScreen();
            }
           else {
              el.mozRequestFullScreen();
-          }            
+          }
+		  element = document.getElementById("start")
+		  element.parentNode.removeChild(element);
+		  startGame();
         }
 
-    myGameArea.canvas.addEventListener("click",fullscreen)
+    
