@@ -8,8 +8,10 @@ var myGameArea = {
   canvas : document.createElement("canvas"),
   start : function() {
 
-    this.canvas.width = window.innerWidth*devicePixelRatio;
-    this.canvas.height = window.innerHeight*devicePixelRatio-10;
+    this.canvas.width = document.body.clientWidth;
+    this.canvas.height = document.body.clientHeight;
+	this.canvasW = canvas.width;
+    this.canvasH = canvas.height;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
