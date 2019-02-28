@@ -49,7 +49,7 @@ this.update = function(){
 	this.hitLeft();
 	this.hitRight();
 	for(i=0; i < myObstacles.length; i++){
-	if(myGamePiece.inside(myObstacles[i])){	
+	if(!myGamePiece.inside(myObstacles[i])){	
 	if(myGamePiece.crashVertically(myObstacles[i])){
 		this.y = myObstacles[i].y - this.height;
 		this.gravitySpeed = 0;
@@ -134,9 +134,9 @@ this.update = function(){
     var otherleft = otherobj.x;
 	var myleft = this.x;
     var otherright = otherobj.x + (otherobj.width);
-	var inside = false;
+	var inside = true;
 	if((myleft > otherright || otherleft> myright)||(mytop < otherbottom || othertop < mybottom)){
-	inside = true;
+	inside = false;
 	}
 	return inside;
   }
