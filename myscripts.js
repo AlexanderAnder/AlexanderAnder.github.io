@@ -49,7 +49,7 @@ this.update = function(){
 	this.hitLeft();
 	this.hitRight();
 	for(i=0; i < myObstacles.length; i++){
-	if(myGamePiece.inside(myObstacles[i])){	
+	//if(myGamePiece.inside(myObstacles[i])){	
 	if(myGamePiece.crashVertically(myObstacles[i])){
 		this.y = myObstacles[i].y - this.height;
 		this.gravitySpeed = 0;
@@ -60,7 +60,7 @@ this.update = function(){
 	 if(myGamePiece.crashRight(myObstacles[i])){
 		 this.x = myObstacles[i].x - this.x;
 	 }*/
-	}
+	//}
    }
   }
   //Prueft ob der Spielstein den Boden des spielfeldes trifft
@@ -95,8 +95,8 @@ this.update = function(){
     var otherright = otherobj.x + (otherobj.width);
     var crash = false;
     if ((mybottom > othertop) && (mybottom < otherbottom) &&
-	((myright > otherleft && myleft < otherleft)||
-	(myleft < otherright && myright > otherright)||
+	(//(myright > otherleft && myleft < otherleft)||
+	//(myleft < otherright && myright > otherright)||
 	(myleft < otherright && myright < otherright && myleft > otherleft && myright > otherleft)))
     {
       crash = true;
@@ -128,7 +128,7 @@ this.update = function(){
     return crash;
   }
   //Prueft ob ein Rechteck in einem anderen drinn ist
-  this.inside = function(otherobj){
+ /* this.inside = function(otherobj){
 	var mytop = this.y;
     var mybottom = this.y + (this.height);
     var othertop = otherobj.y;
@@ -142,7 +142,7 @@ this.update = function(){
 	inside = true;
 	}
 	return inside;
-  }
+  }*/
 }
 //Aktualisiert das gesamte Spielfeld
 function updateGameArea() {
