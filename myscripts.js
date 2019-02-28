@@ -1,7 +1,8 @@
 
 function startGame() {
     myGameArea.start();
-	myGamePiece = new component(30,30,"blue", (myGameArea.canvas.width)/2,0);
+	myGamePiece = new component(10,10,"blue", (myGameArea.canvas.width)/2,0);
+	myObstacle = new component(50,10,"red",(myGameArea.canvas.width)/2-25,200)
 }
 
 var myGameArea = {
@@ -9,7 +10,7 @@ var myGameArea = {
   start : function() {
 
     this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    this.canvas.height = window.outerHeight;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
@@ -42,6 +43,10 @@ this.update = function(){
 	this.hitBottom();
 	this.hitLeft();
 	this.hitRight();
+	if(myGamePiece.crashWith(myObstacle)){
+		this.y = myObstacle.y-myObstacle.height;
+		this.gravitySpeed = 0;
+	}
   }
   
   this.hitBottom = function() {
@@ -62,12 +67,32 @@ this.update = function(){
       this.x = rightEdge;
     }
   }
+   this.crashWith = function(otherobj) {
+    var myleft = this.x;
+    var myright = this.x + (this.width);
+    var mytop = this.y;
+    var mybottom = this.y + (this.height);
+    var otherleft = otherobj.x;
+    var otherright = otherobj.x + (otherobj.width);
+    var othertop = otherobj.y;
+    var otherbottom = otherobj.y + (otherobj.height);
+    var crash = true;
+    if ((mybottom < othertop) ||
+    (mytop > otherbottom) ||
+    (myright < otherleft) ||
+    (myleft > otherright)) {
+      crash = false;
+    }
+    return crash;
+  }
 }
 
 function updateGameArea() {
   myGameArea.clear();
+  myObstacle.update();
   myGamePiece.newPos();
   myGamePiece.update();
+ 
 }
 
 function deviceOrientationListener(event) {
