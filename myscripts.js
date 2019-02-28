@@ -34,7 +34,7 @@ function component(width, height, color, x, y) {
     this.gravitySpeed = 0;
     this.x = x;
     this.y = y;  
-	//Updatefunktion für jeden neuen Frame
+	//Updatefunktion fuer jeden neuen Frame
 this.update = function(){	
     ctx = myGameArea.context;
     ctx.fillStyle = color;
@@ -63,28 +63,28 @@ this.update = function(){
 	}
    }
   }
-  //Prüft ob der Spielstein den Boden des spielfeldes trifft
+  //Prueft ob der Spielstein den Boden des spielfeldes trifft
   this.hitBottom = function() {
     var rockbottom = myGameArea.canvas.height - this.height;
     if (this.y > rockbottom) {
       this.y = rockbottom;
     }
   }
-  //Prüft ob der Spielstein den linken Rand trifft 
+  //Prueft ob der Spielstein den linken Rand trifft 
   this.hitLeft = function() {
     var leftEdge = 0;
     if (this.x < leftEdge) {
       this.x = leftEdge;
     }
   }
-  //Prüft ob der Spielstein den rechten Rand trifft
+  //Prueft ob der Spielstein den rechten Rand trifft
   this.hitRight = function() {
     var rightEdge = myGameArea.canvas.width - this.width;
     if (this.x > rightEdge) {
       this.x = rightEdge;
     }
   }
-  //Prüft ob der Spielstein ein Hinderniss von oben trifft
+  //Prueft ob der Spielstein ein Hinderniss von oben trifft
    this.crashVertically = function(otherobj) {
     var mybottom = this.y + (this.height);
     var othertop = otherobj.y;
@@ -100,7 +100,7 @@ this.update = function(){
     }
     return crash;
   }
-  //Prüft ob der Spielstein ein Hinderniss von links trifft
+  //Prueft ob der Spielstein ein Hinderniss von links trifft
   this.crashLeft = function(otherobj) {
 	var mytop = this.y;
     var mybottom = this.y + (this.height);
@@ -114,7 +114,7 @@ this.update = function(){
     }
     return crash;
   }
-  //Prüft ob der Spielstein ein Hinderniss von rechts trifft
+  //Prueft ob der Spielstein ein Hinderniss von rechts trifft
    this.crashRight = function(otherobj) {
 	var myleft = this.x;
     var otherright = otherobj.x + (otherobj.width);
@@ -124,7 +124,7 @@ this.update = function(){
     }
     return crash;
   }
-  //Prüft ob ein Rechteck in einem anderen drinn ist
+  //Prueft ob ein Rechteck in einem anderen drinn ist
   this.inside = function(otherobj){
 	var mytop = this.y;
     var mybottom = this.y + (this.height);
@@ -155,13 +155,13 @@ function updateGameArea() {
 function deviceOrientationListener(event) {
 	myGamePiece.speedX = event.gamma/3;
 }
-//Prüft ob das Gerät Bewegungssteuerung unterstützt
+//Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
         window.addEventListener("deviceorientation", deviceOrientationListener);
       } else {
         alert("Sorry, your browser doesn't support Device Orientation");
       }
-//Ruft das Spielfeld im vollbildmodus auf	  	  
+//Ruft das Spielfeld im Vollbildmodus auf	  	  
 function fullscreen(){
         var el = document.documentElement;
 
