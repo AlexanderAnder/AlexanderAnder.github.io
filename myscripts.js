@@ -49,6 +49,7 @@ this.update = function(){
 	this.hitLeft();
 	this.hitRight();
 	for(i=0; i < myObstacles.length; i++){
+	if(myGamePiece.inside(myObstacles[i])){	
 	if(myGamePiece.crashVertically(myObstacles[i])){
 		this.y = myObstacles[i].y - myObstacles[i].height;
 		this.gravitySpeed = 0;
@@ -60,6 +61,7 @@ this.update = function(){
 		 this.x = myObstacles[i].x - this.x;
 	 }*/
 	}
+   }
   }
   //Prüft ob der Spielstein den Boden des spielfeldes trifft
   this.hitBottom = function() {
@@ -84,14 +86,17 @@ this.update = function(){
   }
   //Prüft ob der Spielstein ein Hinderniss von oben trifft
    this.crashVertically = function(otherobj) {
-    var mytop = this.y;
     var mybottom = this.y + (this.height);
     var othertop = otherobj.y;
     var otherbottom = otherobj.y + (otherobj.height);
-    var crash = true;
-    if ((mybottom < othertop) ||
-    (mytop > otherbottom)) {
-      crash = false;
+	var myright = this.x + (this.width);
+    var otherleft = otherobj.x;
+	var myleft = this.x;
+    var otherright = otherobj.x + (otherobj.width);
+    var crash = false;
+    if ((mybottom > othertop) && (mybottom < otherbottom) && (myright > otherleft || myleft < otherright))
+    {
+      crash = true;
     }
     return crash;
   }
@@ -118,6 +123,22 @@ this.update = function(){
       crash = false;
     }
     return crash;
+  }
+  //Prüft ob ein Rechteck in einem anderen drinn ist
+  this.inside = function(otherobj){
+	var mytop = this.y;
+    var mybottom = this.y + (this.height);
+    var othertop = otherobj.y;
+    var otherbottom = otherobj.y + (otherobj.height);
+	var myright = this.x + (this.width);
+    var otherleft = otherobj.x;
+	var myleft = this.x;
+    var otherright = otherobj.x + (otherobj.width);
+	var inside = true;
+	if((myleft > otherright || otherleft> myright)||(mytop < otherbottom || othertop < mybottom)){
+	inside = false;
+	}
+	return inside;
   }
 }
 //Aktualisiert das gesamte Spielfeld
