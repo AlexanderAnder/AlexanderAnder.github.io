@@ -4,7 +4,7 @@ var myObstacles = [];
 function startGame() {
     myGameArea.start();
 	myGamePiece = new component(15,15,"blue", (myGameArea.canvas.width)/2,0);
-	myObstacles[0] = new component(10,50,"red",(myGameArea.canvas.width)/2-100,myGameArea.canvas.height-50)
+	myObstacles[0] = new component(50,50,"red",(myGameArea.canvas.width)/2-25,200)
 	//myObstacles[1] = new component(50,100,"red",(myGameArea.canvas.width)/2-50,300)
 	//myObstacles[2] = new component(50,50,"red",(myGameArea.canvas.width)/2-100,280)
 }
@@ -14,7 +14,7 @@ var myGameArea = {
   start : function() {
 
     this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    this.canvas.height = window.outerHeight;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
@@ -51,7 +51,7 @@ this.update = function(){
 	for(i=0; i < myObstacles.length; i++){
 	if(myGamePiece.inside(myObstacles[i])){	
 	if(myGamePiece.crashVertically(myObstacles[i])){
-		this.y = myObstacles[i].y - myObstacles[i].height;
+		this.y = myObstacles[i].y - this.height;
 		this.gravitySpeed = 0;
 	}
 	/*if(myGamePiece.crashLeft(myObstacles[i])){
