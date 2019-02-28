@@ -3,7 +3,7 @@ var myObstacles = [];
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
     myGameArea.start();
-	myGamePiece = new component(20,20,"blue", (myGameArea.canvas.width)/2,0);
+	myGamePiece = new component(15,15,"blue", (myGameArea.canvas.width)/2,0);
 	myObstacles[0] = new component(10,50,"red",(myGameArea.canvas.width)/2-100,myGameArea.canvas.height-50)
 	//myObstacles[1] = new component(50,100,"red",(myGameArea.canvas.width)/2-50,300)
 	//myObstacles[2] = new component(50,50,"red",(myGameArea.canvas.width)/2-100,280)
@@ -14,7 +14,7 @@ var myGameArea = {
   start : function() {
 
     this.canvas.width = window.innerWidth;
-    this.canvas.height = window.outerHeight;
+    this.canvas.height = window.innerHeight;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
@@ -134,9 +134,9 @@ this.update = function(){
     var otherleft = otherobj.x;
 	var myleft = this.x;
     var otherright = otherobj.x + (otherobj.width);
-	var inside = true;
+	var inside = false;
 	if((myleft > otherright || otherleft> myright)||(mytop < otherbottom || othertop < mybottom)){
-	inside = false;
+	inside = true;
 	}
 	return inside;
   }
