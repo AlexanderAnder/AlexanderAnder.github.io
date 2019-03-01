@@ -5,7 +5,7 @@ var maxSpeed = 10;
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
     myGameArea.start();
-	myGamePiece = new component(10,10,"green", (myGameArea.canvas.width)/2,0);
+	myGamePiece = new component(10,10,"red", (myGameArea.canvas.width)/2,0);
 	setObstacles();
 }
 //Eigenschaften und Funktionen des Spielfeldes
@@ -164,7 +164,7 @@ function setObstacles(){
 }
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
-	myGamePiece.speedX = event.gamma/3;
+	myGamePiece.speedX = Math.min(event.gamma/10,maxSpeed);
 }
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
