@@ -54,10 +54,10 @@ this.update = function(){
 		this.y = myObstacles[i].y - this.height;
 		this.gravitySpeed = 0;
 	}
-	/*if(myGamePiece.crashLeft(myObstacles[i])){
+	if(myGamePiece.crashLeft(myObstacles[i])){
 		this.x = myObstacles[i].x + myObstacles[i].width; 
 	}
-	 if(myGamePiece.crashRight(myObstacles[i])){
+	/* if(myGamePiece.crashRight(myObstacles[i])){
 		 this.x = myObstacles[i].x - this.x;
 	 }*/
 	//}
@@ -111,10 +111,14 @@ this.update = function(){
     var othertop = otherobj.y;
     var otherbottom = otherobj.y + (otherobj.height);
 	var myright = this.x + (this.width);
+	var myleft = this.x
     var otherleft = otherobj.x;
-    var crash = true;
-    if ((myright < otherleft)&& (mytop > othertop) && (mybottom < otherbottom ) ) {
-      crash = false;
+	var otherright = otherobj.x + (otherobj.width);
+    var crash = false;
+    if ((myleft < myright)
+		&& ((mytop < othertop && mybottom > otherbottom)||(mybottom > othertop && mytop > othertop)||(mytop < otherbottom && mybottom > otherbottom))) 
+	{
+      crash = true;
     }
     return crash;
   }
