@@ -1,6 +1,7 @@
 var myGamePiece;
 var myObstacles = [];
 var delta = 0.001;
+var maxSpeed = 40;
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
     myGameArea.start();
@@ -12,8 +13,8 @@ var myGameArea = {
   canvas : document.createElement("canvas"),
   start : function() {
 
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.outerHeight;
+    this.canvas.width = window.innerWidth; 
+    this.canvas.height = window.outerHeight + document.body.offsetHeight;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
@@ -156,14 +157,14 @@ function updateGameArea() {
 }
 
 function setObstacles(){
-	myObstacles[0] = new component(50,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-50-delta);
+	myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-50-delta);
 	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-50-delta,300);
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
 	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta,320);
 }
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
-	myGamePiece.speedX = event.gamma/3;
+	myGamePiece.speedX = min(event.gamma/3,maxSpeed);
 }
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
@@ -185,5 +186,8 @@ function fullscreen(){
 		  element.parentNode.removeChild(element);
 		  startGame();
         }
+
+
+
 
     
