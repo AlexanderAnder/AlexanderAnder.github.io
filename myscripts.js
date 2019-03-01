@@ -115,7 +115,7 @@ this.update = function(){
     if ((myleft < otherright) &&
 	(myright > otherright) &&
 	((mytop > othertop && mybottom < otherbottom)||
-	(mybottom > othertop && mytop > othertop)||
+	(mybottom > othertop && mytop > othertop && mybottom < otherbottom)||
 	(mytop < otherbottom && mybottom > otherbottom))) 
 	{
       crash = true;
@@ -156,7 +156,7 @@ function updateGameArea() {
 }
 
 function setObstacles(){
-	myObstacles[0] = new component(50,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-50);
+	myObstacles[0] = new component(50,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-50-delta);
 	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-50-delta,300);
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
 	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta,320);
