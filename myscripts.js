@@ -4,7 +4,7 @@ var delta = 0.001;
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
     myGameArea.start();
-	myGamePiece = new component(10,10,"yellow", (myGameArea.canvas.width)/2,0);
+	myGamePiece = new component(10,10,"brown", (myGameArea.canvas.width)/2,0);
 	setObstacles();
 }
 //Eigenschaften und Funktionen des Spielfeldes
@@ -134,9 +134,9 @@ this.update = function(){
 	var otherright = otherobj.x + (otherobj.width);
     var crash = false;
      if ((myright > otherleft) &&
-	(myleft < otherright) &&
+	(myleft < otherleft) &&
 	((mytop > othertop && mybottom < otherbottom)||
-	(mybottom > othertop && mytop > othertop)||
+	(mybottom > othertop && mytop > othertop && mybottom < otherbottom)||
 	(mytop < otherbottom && mybottom > otherbottom))) 
 	{
       crash = true;
