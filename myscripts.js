@@ -86,6 +86,7 @@ this.update = function(){
   }
   //Prueft ob der Spielstein ein Hinderniss von oben trifft
    this.crashVertically = function(otherobj) {
+	var mytop = this.y;
     var mybottom = this.y + (this.height);
     var othertop = otherobj.y;
     var otherbottom = otherobj.y + (otherobj.height);
@@ -94,9 +95,9 @@ this.update = function(){
 	var myleft = this.x;
     var otherright = otherobj.x + (otherobj.width);
     var crash = false;
-    if ((mybottom > othertop) && (mybottom < otherbottom) &&
-	(//(myright > otherleft && myleft < otherleft)||
-	//(myleft < otherright && myright > otherright)||
+    if ((mybottom > othertop) && (mytop < othertop) &&
+	((myright > otherleft && myleft < otherleft)||
+	(myleft < otherright && myright > otherright)||
 	(myleft < otherright && myright < otherright && myleft > otherleft && myright > otherleft)))
     {
       crash = true;
