@@ -164,7 +164,7 @@ function setObstacles(){
 }
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
-	myGamePiece.speedX = min(event.gamma/3,maxSpeed);
+	myGamePiece.speedX = Math.min(event.gamma/3,maxSpeed);
 }
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
