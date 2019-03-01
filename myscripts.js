@@ -49,7 +49,6 @@ this.update = function(){
 	this.hitLeft();
 	this.hitRight();
 	for(i=0; i < myObstacles.length; i++){
-	//if(myGamePiece.inside(myObstacles[i])){	
 	if(myGamePiece.crashVertically(myObstacles[i])){
 		this.y = myObstacles[i].y - this.height;
 		this.gravitySpeed = 0;
@@ -57,10 +56,9 @@ this.update = function(){
 	if(myGamePiece.crashLeft(myObstacles[i])){
 		this.x = myObstacles[i].x + myObstacles[i].width; 
 	}
-	/* if(myGamePiece.crashRight(myObstacles[i])){
-		 this.x = myObstacles[i].x - this.x;
-	 }*/
-	//}
+	 if(myGamePiece.crashRight(myObstacles[i])){
+		 this.x = myObstacles[i].x - this.width;
+	 }
    }
   }
   //Prueft ob der Spielstein den Boden des spielfeldes trifft
@@ -115,7 +113,7 @@ this.update = function(){
     var otherleft = otherobj.x;
 	var otherright = otherobj.x + (otherobj.width);
     var crash = false;
-    if ((myleft < myright)
+    if ((myleft < otherright)
 		&& ((mytop < othertop && mybottom > otherbottom)||(mybottom > othertop && mytop > othertop)||(mytop < otherbottom && mybottom > otherbottom))) 
 	{
       crash = true;
@@ -124,30 +122,22 @@ this.update = function(){
   }
   //Prueft ob der Spielstein ein Hinderniss von rechts trifft
    this.crashRight = function(otherobj) {
-	var myleft = this.x;
-    var otherright = otherobj.x + (otherobj.width);
-    var crash = true;
-    if ((myleft > otherright) && (mytop > othertop) && (mybottom < otherbottom ) ) {
-      crash = false;
-    }
-    return crash;
-  }
-  //Prueft ob ein Rechteck in einem anderen drinn ist
- /* this.inside = function(otherobj){
 	var mytop = this.y;
     var mybottom = this.y + (this.height);
     var othertop = otherobj.y;
     var otherbottom = otherobj.y + (otherobj.height);
 	var myright = this.x + (this.width);
+	var myleft = this.x
     var otherleft = otherobj.x;
-	var myleft = this.x;
-    var otherright = otherobj.x + (otherobj.width);
-	var inside = false;
-	if((myleft > otherright || otherleft> myright)||(mytop < otherbottom || othertop < mybottom)){
-	inside = true;
-	}
-	return inside;
-  }*/
+	var otherright = otherobj.x + (otherobj.width);
+    var crash = false;
+     if ((myright < otherleft)
+		&& ((mytop < othertop && mybottom > otherbottom)||(mybottom > othertop && mytop > othertop)||(mytop < otherbottom && mybottom > otherbottom))) 
+	{
+      crash = true;
+    }
+    return crash;
+  }
 }
 //Aktualisiert das gesamte Spielfeld
 function updateGameArea() {
