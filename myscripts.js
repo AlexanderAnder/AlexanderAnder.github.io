@@ -56,9 +56,9 @@ this.update = function(){
 	if(myGamePiece.crashLeft(myObstacles[i])){
 		this.x = myObstacles[i].x + myObstacles[i].width; 
 	}
-	/* if(myGamePiece.crashRight(myObstacles[i])){
+	 if(myGamePiece.crashRight(myObstacles[i])){
 		 this.x = myObstacles[i].x - this.width;
-	 }*/
+	 }
    }
   }
   //Prueft ob der Spielstein den Boden des spielfeldes trifft
