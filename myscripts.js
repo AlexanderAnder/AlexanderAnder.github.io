@@ -1,9 +1,10 @@
 var myGamePiece;
 var myObstacles = [];
+var delta = 0.001;
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
     myGameArea.start();
-	myGamePiece = new component(15,15,"blue", (myGameArea.canvas.width)/2,0);
+	myGamePiece = new component(10,10,"yellow", (myGameArea.canvas.width)/2,0);
 	setObstacles();
 }
 //Eigenschaften und Funktionen des Spielfeldes
@@ -156,9 +157,9 @@ function updateGameArea() {
 
 function setObstacles(){
 	myObstacles[0] = new component(50,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-50);
-	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-50,300);
+	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-50-delta,300);
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
-	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2,320);
+	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta,320);
 }
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
