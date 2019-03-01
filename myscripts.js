@@ -113,8 +113,11 @@ this.update = function(){
     var otherleft = otherobj.x;
 	var otherright = otherobj.x + (otherobj.width);
     var crash = false;
-    if ((myleft < otherright)
-		&& ((mytop < othertop && mybottom > otherbottom)||(mybottom > othertop && mytop > othertop)||(mytop < otherbottom && mybottom > otherbottom))) 
+    if ((myleft < otherright) &&
+	(myright > otherright) &&
+	((mytop < othertop && mybottom > otherbottom)||
+	(mybottom > othertop && mytop > othertop)||
+	(mytop < otherbottom && mybottom > otherbottom))) 
 	{
       crash = true;
     }
@@ -131,8 +134,11 @@ this.update = function(){
     var otherleft = otherobj.x;
 	var otherright = otherobj.x + (otherobj.width);
     var crash = false;
-     if ((myright < otherleft)
-		&& ((mytop < othertop && mybottom > otherbottom)||(mybottom > othertop && mytop > othertop)||(mytop < otherbottom && mybottom > otherbottom))) 
+     if ((myright < otherleft) &&
+	(myleft < otherright) &&
+	((mytop < othertop && mybottom > otherbottom)||
+	(mybottom > othertop && mytop > othertop)||
+	(mytop < otherbottom && mybottom > otherbottom))) 
 	{
       crash = true;
     }
