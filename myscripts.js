@@ -113,7 +113,7 @@ this.update = function(){
     var crash = false;
     if ((myleft < otherright) &&
 	(myright > otherright) &&
-	((mytop < othertop && mybottom > otherbottom)||
+	((mytop > othertop && mybottom < otherbottom)||
 	(mybottom > othertop && mytop > othertop)||
 	(mytop < otherbottom && mybottom > otherbottom))) 
 	{
@@ -134,7 +134,7 @@ this.update = function(){
     var crash = false;
      if ((myright > otherleft) &&
 	(myleft < otherright) &&
-	((mytop < othertop && mybottom > otherbottom)||
+	((mytop > othertop && mybottom < otherbottom)||
 	(mybottom > othertop && mytop > othertop)||
 	(mytop < otherbottom && mybottom > otherbottom))) 
 	{
