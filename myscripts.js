@@ -134,7 +134,7 @@ this.update = function(){
     var otherleft = otherobj.x;
 	var otherright = otherobj.x + (otherobj.width);
     var crash = false;
-     if ((myright < otherleft) &&
+     if ((myright > otherleft) &&
 	(myleft < otherright) &&
 	((mytop < othertop && mybottom > otherbottom)||
 	(mybottom > othertop && mytop > othertop)||
