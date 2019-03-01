@@ -3,10 +3,10 @@ var myObstacles = [];
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
     myGameArea.start();
-	myGamePiece = new component(15,15,"blue", (myGameArea.canvas.width)/2,0);
-	myObstacles[0] = new component(50,50,"red",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-50)
-	//myObstacles[1] = new component(50,100,"red",(myGameArea.canvas.width)/2-50,300)
-	//myObstacles[2] = new component(50,50,"red",(myGameArea.canvas.width)/2-100,280)
+	myGamePiece = new component(15,15,"green", (myGameArea.canvas.width)/2,0);
+	myObstacles[0] = new component(50,50,"blue",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-50)
+	myObstacles[1] = new component(50,100,"blue",(myGameArea.canvas.width)/2-50,300)
+	myObstacles[2] = new component(50,50,"blue",(myGameArea.canvas.width)/2-100,280)
 }
 //Eigenschaften und Funktionen des Spielfeldes
 var myGameArea = {
