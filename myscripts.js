@@ -1,10 +1,11 @@
 var myGamePiece;
 var myObstacles = [];
 var delta = 0.001;
-var maxSpeed = 15;
+var maxSpeed = 10;
+var timer;
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"red", (window.innerWidth)/2,10);
+	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -20,6 +21,8 @@ var myGameArea = {
     this.interval = setInterval(updateGameArea, 20);
 	this.canvas.addEventListener("touchstart", moveUp);
 	this.canvas.addEventListener("touchend", stopUp);
+	this.canvas.addEventListener("mousedown", moveUp);
+	this.canvas.addEventListener("mouseup", stopUp);
   },
   //Leert das gesamte Spielfeld
   clear : function() {
@@ -179,11 +182,16 @@ function deviceOrientationListener(event) {
 
 //Bewegt den Spielstein nach oben
 function moveUp(){
-	myGamePiece.y -= 10 ; 
+	timer = window.setInterval(moving,100); 
+}
+
+function moving(){
+	myGamePiece.gravitySpeed = 0;
+	myGamePiece.y -= 3;
 }
 
 function stopUp(){
-	myGamePiece.y += 0;
+	clearInterval(timer);
 }
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
