@@ -3,11 +3,11 @@ var myObstacles = [];
 var delta = 0.001;
 var maxSpeed = 5;
 var minSpeed = -5;
-var maxSpeedUp = -10; 
+var maxSpeedUp = -5; 
 var timer;
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"cyan", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"green", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -197,7 +197,7 @@ function updateGameArea() {
 }
 
 function setObstacles(){
-	myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-50-delta);
+	myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-100);
 	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-50-delta,300);
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
 	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta,320);
