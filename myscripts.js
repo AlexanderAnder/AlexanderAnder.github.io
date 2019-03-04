@@ -1,11 +1,11 @@
 var myGamePiece;
 var myObstacles = [];
 var delta = 0.001;
-var maxSpeed = 25;
+var maxSpeed = 20;
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-    myGameArea.start();
-	myGamePiece = new component(10,10,"brown", (myGameArea.canvas.width)/2,0);
+	myGamePiece = new component(10,10,"blue", (window.innerWidth)/2,0);
+	myGameArea.start();
 	setObstacles();
 }
 //Eigenschaften und Funktionen des Spielfeldes
@@ -18,6 +18,10 @@ var myGameArea = {
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
+	this.canvas.addEventListener('onclick', function (e) {
+      myGamePiece.x -= myGamePiece.gravitySpeed + 1 ;
+    })
+	
   },
   //Leert das gesamte Spielfeld
   clear : function() {
@@ -164,14 +168,17 @@ function setObstacles(){
 }
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
-	myGamePiece.speedX = Math.min(event.gamma/4,maxSpeed);
+	myGamePiece.speedX = Math.min(event.gamma/5,maxSpeed);
 }
+
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
         window.addEventListener("deviceorientation", deviceOrientationListener);
       } else {
         alert("Sorry, your browser doesn't support Device Orientation");
       }
+	  
+	  
 //Ruft das Spielfeld im Vollbildmodus auf	  	  
 function fullscreen(){
         var el = document.documentElement;
