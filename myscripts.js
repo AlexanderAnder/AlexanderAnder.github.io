@@ -1,7 +1,8 @@
 var myGamePiece;
 var myObstacles = [];
 var delta = 0.001;
-var maxSpeed = 3;
+var maxSpeed = 10;
+var minSpeed = -10;
 var timer;
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
@@ -179,7 +180,11 @@ function setObstacles(){
 }
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
+	if (event.gamma > 0){
 	myGamePiece.speedX = Math.min(event.gamma/5,maxSpeed);
+	}else{
+		myGamePiece.speedX = Math.max(event.gamma/5,minSpeed);
+	}
 }
 
 //Bewegt den Spielstein nach oben
@@ -190,7 +195,7 @@ function moveUp(){
 function moving(){
 	myGamePiece.gravity = 0;
 	myGamePiece.gravitySpeed = 0;
-	myGamePiece.y -= 2;
+	myGamePiece.speedY -= 3;
 }
 
 function stopUp(){
