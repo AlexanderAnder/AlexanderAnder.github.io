@@ -19,7 +19,7 @@ var myGameArea = {
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
 	this.canvas.addEventListener("touchstart", moveUp);
-	document.body.addEventListener("touchend", stopUp);
+	this.canvas.addEventListener("touchend", stopUp);
   },
   //Leert das gesamte Spielfeld
   clear : function() {
@@ -179,11 +179,11 @@ function deviceOrientationListener(event) {
 
 //Bewegt den Spielstein nach oben
 function moveUp(){
-	myGamePiece.y -=  1 ; 
+	myGamePiece.y -= 10 ; 
 }
 
 function stopUp(){
-	myGamePiece.y +=1;
+	myGamePiece.y += 0;
 }
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
