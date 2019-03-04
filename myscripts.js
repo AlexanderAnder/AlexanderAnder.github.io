@@ -3,6 +3,7 @@ var myObstacles = [];
 var delta = 0.001;
 var maxSpeed = 5;
 var minSpeed = -5;
+var maxSpeedUp = -10; 
 var timer;
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
@@ -57,9 +58,12 @@ this.update = function(){
 	this.hitLeft();
 	this.hitRight();
 	for(i=0; i < myObstacles.length; i++){
-	if(myGamePiece.crashVertically(myObstacles[i])){
+	if(myGamePiece.crashTop(myObstacles[i])){
 		this.y = myObstacles[i].y - this.height;
 		this.gravitySpeed = 0;
+	}
+	if(myGamePiece.crashBottom(myObstacles[i])){
+		this.y = myObstacles[i].y + myObstacles[i].height;
 	}
 	if(myGamePiece.crashLeft(myObstacles[i])){
 		this.x = myObstacles[i].x + myObstacles[i].width; 
@@ -98,8 +102,28 @@ this.update = function(){
       this.x = rightEdge;
     }
   }
+  //Prueft ob der Spielstein ein Hinderniss von unten trifft
+   this.crashBottom = function(otherobj) {
+	var mytop = this.y;
+    var mybottom = this.y + (this.height);
+    var othertop = otherobj.y;
+    var otherbottom = otherobj.y + (otherobj.height);
+	var myright = this.x + (this.width);
+    var otherleft = otherobj.x;
+	var myleft = this.x;
+    var otherright = otherobj.x + (otherobj.width);
+    var crash = false;
+    if ((mybottom > otherbottom) && (mytop < otherbottom) &&
+	((myright > otherleft && myleft < otherleft)||
+	(myleft < otherright && myright > otherright)||
+	(myleft < otherright && myright < otherright && myleft > otherleft && myright > otherleft)))
+    {
+      crash = true;
+    }
+    return crash;
+  }
   //Prueft ob der Spielstein ein Hinderniss von oben trifft
-   this.crashVertically = function(otherobj) {
+   this.crashTop = function(otherobj) {
 	var mytop = this.y;
     var mybottom = this.y + (this.height);
     var othertop = otherobj.y;
@@ -189,15 +213,17 @@ function deviceOrientationListener(event) {
 
 //Bewegt den Spielstein nach oben
 function moveUp(){
+	myGamePiece.speedY = -1;
 	timer = window.setInterval(moving,100); 
 }
 //Bewegt den Spielstein nach oben
 function moving(){
 	myGamePiece.gravity = 0;
 	myGamePiece.gravitySpeed = 0;
-	myGamePiece.speedY -= 0.5;
+	myGamePiece.speedY = Math.max(maxSpeedUp,myGamePiece.speedY -1);
 }
 
+//Stoppt den Spielstein vom Steigen
 function stopUp(){
 	clearInterval(timer);
 	myGamePiece.gravity = 0.05;
@@ -225,8 +251,3 @@ function fullscreen(){
 		  element.parentNode.removeChild(element);
 		  startGame();
         }
-
-
-
-
-    
