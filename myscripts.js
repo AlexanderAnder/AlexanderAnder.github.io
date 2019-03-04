@@ -1,11 +1,11 @@
 var myGamePiece;
 var myObstacles = [];
 var delta = 0.001;
-var maxSpeed = 5;
+var maxSpeed = 3;
 var timer;
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"black", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"yellow", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -39,6 +39,7 @@ function component(width, height, color, x, y) {
     this.gravitySpeed = 0;
     this.x = x;
     this.y = y;  
+	
 	//Updatefunktion fuer jeden neuen Frame
 this.update = function(){	
     ctx = myGameArea.context;
@@ -79,6 +80,7 @@ this.update = function(){
     var rockbottom = myGameArea.canvas.height - this.height;
     if (this.y > rockbottom) {
       this.y = rockbottom;
+	  myGamePiece.gravitySpeed = 0;
     }
   }
   //Prueft ob der Spielstein den linken Rand trifft 
@@ -184,10 +186,11 @@ function deviceOrientationListener(event) {
 function moveUp(){
 	timer = window.setInterval(moving,100); 
 }
-
+//Bewegt den Spielstein nach oben
 function moving(){
 	myGamePiece.gravity = 0;
-	myGamePiece.y -= 5;
+	myGamePiece.gravitySpeed = 0;
+	myGamePiece.y -= 2;
 }
 
 function stopUp(){
