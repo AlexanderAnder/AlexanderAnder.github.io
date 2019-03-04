@@ -57,9 +57,7 @@ this.update = function(){
  this.newPos = function() {
 	this.gravitySpeed += this.gravity;
     this.x += this.speedX;
-    this.y += this.speedY + this.gravitySpeed;
-	this.hitCeiling();
-	this.hitBottom();
+    this.y += this.speedY + this.gravitySpeed;	
 	this.hitLeft();
 	this.hitRight();
 	for(i=0; i < myObstacles.length; i++){
@@ -77,6 +75,8 @@ this.update = function(){
 		 this.x = myObstacles[i].x - this.width;
 	 }
    }
+   this.hitCeiling();
+   this.hitBottom();
   }
   
   //Prueft ob der Spielstein die Decke des Spielfeldes trifft
@@ -215,6 +215,7 @@ function setObstacles(){
 	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-50-delta,300);
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
 	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta,320);
+	myObstacles[0] = new component(10,50,"gray",33,5);
 }
 
 //Bewegungssteuerung des Spielsteins
