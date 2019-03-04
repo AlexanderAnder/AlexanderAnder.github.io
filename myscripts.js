@@ -1,10 +1,10 @@
 var myGamePiece;
 var myObstacles = [];
 var delta = 0.001;
-var maxSpeed = 20;
+var maxSpeed = 15;
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"blue", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"red", (window.innerWidth)/2,10);
 	myGameArea.start();
 	setObstacles();
 }
@@ -18,10 +18,8 @@ var myGameArea = {
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
-	this.canvas.addEventListener('onclick', function (e) {
-      myGamePiece.x -= myGamePiece.gravitySpeed + 1 ;
-    })
-	
+	this.canvas.addEventListener("touchstart", moveUp);
+	document.body.addEventListener("touchend", stopUp);
   },
   //Leert das gesamte Spielfeld
   clear : function() {
@@ -49,6 +47,7 @@ this.update = function(){
 	this.gravitySpeed += this.gravity;
     this.x += this.speedX;
     this.y += this.speedY + this.gravitySpeed;
+	this.hitCeiling();
 	this.hitBottom();
 	this.hitLeft();
 	this.hitRight();
@@ -65,7 +64,14 @@ this.update = function(){
 	 }
    }
   }
-  //Prueft ob der Spielstein den Boden des spielfeldes trifft
+  //Prueft ob der Spielstein die Decke des Spielfeldes trifft
+  this.hitCeiling = function() {
+    var ceiling = 0;
+    if (this.y < ceiling) {
+      this.y = ceiling;
+    }
+  }
+  //Prueft ob der Spielstein den Boden des Spielfeldes trifft
   this.hitBottom = function() {
     var rockbottom = myGameArea.canvas.height - this.height;
     if (this.y > rockbottom) {
@@ -171,6 +177,14 @@ function deviceOrientationListener(event) {
 	myGamePiece.speedX = Math.min(event.gamma/5,maxSpeed);
 }
 
+//Bewegt den Spielstein nach oben
+function moveUp(){
+	myGamePiece.y -=  1 ; 
+}
+
+function stopUp(){
+	myGamePiece.y +=1;
+}
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
         window.addEventListener("deviceorientation", deviceOrientationListener);
