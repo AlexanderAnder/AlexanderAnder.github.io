@@ -5,12 +5,14 @@ var maxSpeed = 5;
 var minSpeed = -5;
 var maxSpeedUp = -5; 
 var timer;
+
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"green", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
+
 //Eigenschaften und Funktionen des Spielfeldes
 var myGameArea = {
   canvas : document.createElement("canvas"),
@@ -26,11 +28,13 @@ var myGameArea = {
 	this.canvas.addEventListener("mousedown", moveUp);
 	this.canvas.addEventListener("mouseup", stopUp);
   },
+  
   //Leert das gesamte Spielfeld
   clear : function() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 }
+
 //Eigenschaften und Funktionen des Spielsteins und den Hindernissen
 function component(width, height, color, x, y) {
     this.width = width;
@@ -48,6 +52,7 @@ this.update = function(){
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
  }
+ 
  //Errechnet die Position des Spielsteins
  this.newPos = function() {
 	this.gravitySpeed += this.gravity;
@@ -73,6 +78,7 @@ this.update = function(){
 	 }
    }
   }
+  
   //Prueft ob der Spielstein die Decke des Spielfeldes trifft
   this.hitCeiling = function() {
     var ceiling = 0;
@@ -80,6 +86,7 @@ this.update = function(){
       this.y = ceiling;
     }
   }
+  
   //Prueft ob der Spielstein den Boden des Spielfeldes trifft
   this.hitBottom = function() {
     var rockbottom = myGameArea.canvas.height - this.height;
@@ -88,6 +95,7 @@ this.update = function(){
 	  myGamePiece.gravitySpeed = 0;
     }
   }
+  
   //Prueft ob der Spielstein den linken Rand trifft 
   this.hitLeft = function() {
     var leftEdge = 0;
@@ -95,6 +103,7 @@ this.update = function(){
       this.x = leftEdge;
     }
   }
+  
   //Prueft ob der Spielstein den rechten Rand trifft
   this.hitRight = function() {
     var rightEdge = myGameArea.canvas.width - this.width;
@@ -102,6 +111,7 @@ this.update = function(){
       this.x = rightEdge;
     }
   }
+  
   //Prueft ob der Spielstein ein Hinderniss von unten trifft
    this.crashBottom = function(otherobj) {
 	var mytop = this.y;
@@ -122,6 +132,7 @@ this.update = function(){
     }
     return crash;
   }
+  
   //Prueft ob der Spielstein ein Hinderniss von oben trifft
    this.crashTop = function(otherobj) {
 	var mytop = this.y;
@@ -142,6 +153,7 @@ this.update = function(){
     }
     return crash;
   }
+  
   //Prueft ob der Spielstein ein Hinderniss von links trifft
   this.crashLeft = function(otherobj) {
 	var mytop = this.y;
@@ -163,6 +175,7 @@ this.update = function(){
     }
     return crash;
   }
+  
   //Prueft ob der Spielstein ein Hinderniss von rechts trifft
    this.crashRight = function(otherobj) {
 	var mytop = this.y;
@@ -185,6 +198,7 @@ this.update = function(){
     return crash;
   }
 }
+
 //Aktualisiert das gesamte Spielfeld
 function updateGameArea() {
   myGameArea.clear();
@@ -197,11 +211,12 @@ function updateGameArea() {
 }
 
 function setObstacles(){
-	myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-100);
+	myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-55);
 	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-50-delta,300);
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
 	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta,320);
 }
+
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
 	if (event.gamma > 0){
@@ -216,6 +231,7 @@ function moveUp(){
 	myGamePiece.speedY = -1;
 	timer = window.setInterval(moving,100); 
 }
+
 //Bewegt den Spielstein nach oben
 function moving(){
 	myGamePiece.gravity = 0;
@@ -229,6 +245,7 @@ function stopUp(){
 	myGamePiece.gravity = 0.05;
 	myGamePiece.speedY = 1;
 }
+
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
         window.addEventListener("deviceorientation", deviceOrientationListener);
