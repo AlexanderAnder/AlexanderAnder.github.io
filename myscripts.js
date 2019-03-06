@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"Olive", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"Lime", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -71,6 +71,14 @@ this.update = function(){
 	verticalModifier = 1;
 	horizontalModifier = 1;
 	for(i=0; i < myObstacles.length; i++){
+		if(myGamePiece.crashLeft(myObstacles[i])){
+		this.x = myObstacles[i].x + myObstacles[i].width; 
+		verticalModifier = 0.5;
+	}
+	 if(myGamePiece.crashRight(myObstacles[i])){
+		 this.x = myObstacles[i].x - this.width;
+		 verticalModifier = 0.5;
+	 }
 	if(myGamePiece.crashTop(myObstacles[i])){
 		this.y = myObstacles[i].y - this.height;
 		horizontalModifier = 0.5;
@@ -80,14 +88,7 @@ this.update = function(){
 		this.y = myObstacles[i].y + myObstacles[i].height;
 		horizontalModifier = 0.5;
 	}
-	if(myGamePiece.crashLeft(myObstacles[i])){
-		this.x = myObstacles[i].x + myObstacles[i].width; 
-		verticalModifier = 0.5;
-	}
-	 if(myGamePiece.crashRight(myObstacles[i])){
-		 this.x = myObstacles[i].x - this.width;
-		 verticalModifier = 0.5;
-	 }
+	
    }
    this.hitCeiling();
    this.hitBottom();
@@ -246,9 +247,9 @@ function deviceOrientationListener(event) {
 
 //Bewegt den Spielstein nach oben
 function moveUp(){
-	myGamePiece.speedY = 0;
+	myGamePiece.speedY = myGamePiece.speedY/10;
 	myGamePiece.gravitySpeed = -1;
-	timer = window.setInterval(moving,50); 
+	timer = window.setInterval(moving,20); 
 }
 
 //Bewegt den Spielstein nach oben
