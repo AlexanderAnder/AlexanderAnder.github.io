@@ -10,7 +10,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"cyan", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"red", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -25,10 +25,10 @@ var myGameArea = {
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
-	this.canvas.addEventListener("touchstart", moveUp);
-	this.canvas.addEventListener("touchend", stopUp);
-	this.canvas.addEventListener("mousedown", moveUp);
-	this.canvas.addEventListener("mouseup", stopUp);
+	this.canvas.addEventListener("touchstart", accelerate(-0.2));
+	this.canvas.addEventListener("touchend", accelerate(0.1));
+	this.canvas.addEventListener("mousedown", accelerate(-0.2));
+	this.canvas.addEventListener("mouseup", accelerate(0.1));
   },
   
   //Leert das gesamte Spielfeld
@@ -94,6 +94,7 @@ this.update = function(){
       this.y = ceiling;
     }
   }
+  
   
   //Prueft ob der Spielstein den Boden des Spielfeldes trifft
   this.hitBottom = function() {
@@ -224,6 +225,7 @@ function setObstacles(){
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
 	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta,320);
 	myObstacles[4] = new component(10,50,"gray",33,-10);
+	myObstacles[5] = new component(myGameArea.canvas.width-20,210,"gray",-10);
 }
 
 //Bewegungssteuerung des Spielsteins
@@ -236,7 +238,7 @@ function deviceOrientationListener(event) {
 }
 
 //Bewegt den Spielstein nach oben
-function moveUp(){
+/*function moveUp(){
 	myGamePiece.speedY = -1 ;
 	timer = window.setInterval(moving,100); 
 }
@@ -253,6 +255,10 @@ function stopUp(){
 	clearInterval(timer);
 	myGamePiece.gravity = 0.05;
 	myGamePiece.speedY = 1;
+}*/
+
+function accelerate(n) {
+    myGamePiece.gravity = n;
 }
 
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
