@@ -3,12 +3,14 @@ var myObstacles = [];
 var delta = 0.001;
 var maxSpeed = 5;
 var minSpeed = -5;
-var maxSpeedUp = -5; 
+var maxSpeedUp = -5;
+var horizontalModifier = 1;
+var verticalModifier = 1; 
 var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"brown", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"black", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -56,23 +58,29 @@ this.update = function(){
  //Errechnet die Position des Spielsteins
  this.newPos = function() {
 	this.gravitySpeed += this.gravity;
-    this.x += this.speedX;
-    this.y += this.speedY + this.gravitySpeed;	
+    this.x += this.speedX*horizontalModifier;
+    this.y += (this.speedY + this.gravitySpeed)*horizontalModifier;	
 	this.hitLeft();
 	this.hitRight();
+	verticalModifier = 1;
+	horizontalModifier = 1;
 	for(i=0; i < myObstacles.length; i++){
 	if(myGamePiece.crashTop(myObstacles[i])){
 		this.y = myObstacles[i].y - this.height;
 		this.gravitySpeed = 0;
+		horizontalModifier = 0.5;
 	}
 	if(myGamePiece.crashBottom(myObstacles[i])){
 		this.y = myObstacles[i].y + myObstacles[i].height;
+		horizontalModifier = 0.5;
 	}
 	if(myGamePiece.crashLeft(myObstacles[i])){
 		this.x = myObstacles[i].x + myObstacles[i].width; 
+		verticalModifier = 0.5;
 	}
 	 if(myGamePiece.crashRight(myObstacles[i])){
 		 this.x = myObstacles[i].x - this.width;
+		 verticalModifier = 0.5;
 	 }
    }
    this.hitCeiling();
@@ -221,15 +229,14 @@ function setObstacles(){
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
 	if (event.gamma > 0){
-	myGamePiece.speedX = Math.min(event.gamma/5,maxSpeed);
-	}else{
-		myGamePiece.speedX = Math.max(event.gamma/5,minSpeed);
+	myGamePiece.speedX = Math.min(event.gamma/5,maxSpeed)*horizontalModifier
+		myGamePiece.speedX = Math.max(event.gamma/5,minSpeed)*horizontalModifier;
 	}
 }
 
 //Bewegt den Spielstein nach oben
 function moveUp(){
-	myGamePiece.speedY = -1;
+	myGamePiece.speedY = -1 * verticalModifier;
 	timer = window.setInterval(moving,100); 
 }
 
@@ -237,14 +244,14 @@ function moveUp(){
 function moving(){
 	myGamePiece.gravity = 0;
 	myGamePiece.gravitySpeed = 0;
-	myGamePiece.speedY = Math.max(maxSpeedUp,myGamePiece.speedY -1);
+	myGamePiece.speedY = Math.max(maxSpeedUp,myGamePiece.speedY -1)*verticalModifier;
 }
 
 //Stoppt den Spielstein vom Steigen
 function stopUp(){
 	clearInterval(timer);
 	myGamePiece.gravity = 0.05;
-	myGamePiece.speedY = 1;
+	myGamePiece.speedY = 1*verticalModifier;
 }
 
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
