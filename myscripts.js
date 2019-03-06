@@ -10,7 +10,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"black", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"cyan", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -230,6 +230,7 @@ function setObstacles(){
 function deviceOrientationListener(event) {
 	if (event.gamma > 0){
 	myGamePiece.speedX = Math.min(event.gamma/5,maxSpeed);
+	}else{
     myGamePiece.speedX = Math.max(event.gamma/5,minSpeed);
 	}
 }
