@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"Purple", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"Olive", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -46,7 +46,7 @@ function component(width, height, color, x, y) {
 	this.speedY=0;
     this.gravity = 0.1;
     this.gravitySpeed = 0;
-	this.bounce = 0.3;
+	this.bounce = 0.4;
     this.x = x;
     this.y = y;  
 	
@@ -248,7 +248,7 @@ function deviceOrientationListener(event) {
 function moveUp(){
 	myGamePiece.speedY = 0;
 	myGamePiece.gravitySpeed = -1;
-	timer = window.setInterval(moving,100); 
+	timer = window.setInterval(moving,50); 
 }
 
 //Bewegt den Spielstein nach oben
