@@ -10,7 +10,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"yellow", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -246,7 +246,6 @@ function moveUp(){
 //Bewegt den Spielstein nach oben
 function moving(){
 	myGamePiece.gravity = -0.1;
-	myGamePiece.gravitySpeed = 0;
 	//myGamePiece.speedY = Math.max(maxSpeedUp,myGamePiece.speedY -1);
 }
 
