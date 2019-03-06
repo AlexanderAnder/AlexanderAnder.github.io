@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"white", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -71,21 +71,22 @@ this.update = function(){
 	verticalModifier = 1;
 	horizontalModifier = 1;
 	for(i=0; i < myObstacles.length; i++){	
-if(myGamePiece.crashTop(myObstacles[i])){
-		this.y = myObstacles[i].y - this.height;
+  if(myGamePiece.crashTop(myObstacles[i])){	  
+		//this.y = myObstacles[i].y - this.height;
+		side(myObstacles[i]);
 		horizontalModifier = 0.5;
 		this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 	}
 	if(myGamePiece.crashBottom(myObstacles[i])){
-		this.y = myObstacles[i].y + myObstacles[i].height;
+		//this.y = myObstacles[i].y + myObstacles[i].height;
 		horizontalModifier = 0.5;
 	}	
 	if(myGamePiece.crashLeft(myObstacles[i])){
-		this.x = myObstacles[i].x + myObstacles[i].width; 
+		//this.x = myObstacles[i].x + myObstacles[i].width; 
 		verticalModifier = 0.5;
 	}
 	 if(myGamePiece.crashRight(myObstacles[i])){
-		 this.x = myObstacles[i].x - this.width;
+		// this.x = myObstacles[i].x - this.width;
 		 verticalModifier = 0.5;
 	 }
 	
@@ -130,7 +131,7 @@ if(myGamePiece.crashTop(myObstacles[i])){
   }
   
   //Prueft ob der Spielstein ein Hinderniss von unten trifft
-   this.crashBottom = function(otherobj) {
+    this.crashBottom = function(otherobj) {
 	var mytop = this.y;
     var mybottom = this.y + (this.height);
     var othertop = otherobj.y;
@@ -266,6 +267,29 @@ function stopUp(){
 	myGamePiece.gravity = 0.1;
 
 }
+
+//Entfernung zwischen zwei Koordinaten mit Phytagoras
+function dist(x1, y1, x2, y2) {
+         var dx = x1 - x2, dy = y1 - y2;
+         return Math.sqrt(dx * dx + dy * dy);
+}
+		
+function side(otherobj){
+var mytop = this.y;
+    var mybottom = this.y + (this.height);
+    var othertop = otherobj.y;
+    var otherbottom = otherobj.y + (otherobj.height);
+	var myright = this.x + (this.width);
+	var myleft = this.x
+    var otherleft = otherobj.x;
+	var otherright = otherobj.x + (otherobj.width);
+	if (dist(mytop + this.height/2,myleft + this.width/2,this.x,othertop)<
+	dist(mytop + this.height/2,myleft + this.width/2,otherright.x,this.y)){
+		this.y = otherobj.y;
+	}else{
+		this.x = otherobj.x;
+
+}	
 
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
