@@ -4,13 +4,14 @@ var delta = 0.001;
 var maxSpeed = 5;
 var minSpeed = -5;
 var maxSpeedUp = -5;
+var gravityLowerBound = -5;
 var horizontalModifier = 1;
 var verticalModifier = 1; 
 var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -45,6 +46,7 @@ function component(width, height, color, x, y) {
 	this.speedY=0;
     this.gravity = 0.05;
     this.gravitySpeed = 0;
+	this.bounce = 0.5;
     this.x = x;
     this.y = y;  
 	
@@ -57,9 +59,13 @@ this.update = function(){
  
  //Errechnet die Position des Spielsteins
  this.newPos = function() {
-	this.gravitySpeed += this.gravity;
+	this.gravitySpeed = Math.max(this.gravitySpeed + this.gravity, gravityLowerBound);
     this.x = this.x + (this.speedX*horizontalModifier);
-    this.y = this.y + ((this.speedY + this.gravitySpeed)*horizontalModifier);	
+	if(this.speedY >= 0){
+    this.y = this.y + ((this.speedY + this.gravitySpeed)*horizontalModifier);
+	}else{
+    this.y = this.y + Math.max(maxSpeedUp,((this.speedY + this.gravitySpeed)*horizontalModifier));
+    }	
 	this.hitLeft();
 	this.hitRight();
 	verticalModifier = 1;
@@ -67,8 +73,8 @@ this.update = function(){
 	for(i=0; i < myObstacles.length; i++){
 	if(myGamePiece.crashTop(myObstacles[i])){
 		this.y = myObstacles[i].y - this.height;
-		this.gravitySpeed = 0;
 		horizontalModifier = 0.5;
+		this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 	}
 	if(myGamePiece.crashBottom(myObstacles[i])){
 		this.y = myObstacles[i].y + myObstacles[i].height;
@@ -101,7 +107,7 @@ this.update = function(){
     var rockbottom = myGameArea.canvas.height - this.height;
     if (this.y > rockbottom) {
       this.y = rockbottom;
-	  myGamePiece.gravitySpeed = 0;
+	  this.gravitySpeed = -(this.gravitySpeed * this.bounce);
     }
   }
   
@@ -219,6 +225,7 @@ function updateGameArea() {
  
 }
 
+//Stellt die Hindernisse auf dem Spielfeld auf
 function setObstacles(){
 	myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-40);
 	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-50-delta,300);
@@ -239,7 +246,7 @@ function deviceOrientationListener(event) {
 
 //Bewegt den Spielstein nach oben
 function moveUp(){
-	myGamePiece.speedY = -1 ;
+	myGamePiece.speedY = 0;
 	timer = window.setInterval(moving,100); 
 }
 
@@ -252,8 +259,9 @@ function moving(){
 //Stoppt den Spielstein vom Steigen
 function stopUp(){
 	clearInterval(timer);
+    myGamePiece.gravitySpeed = myGamePiece.gravitySpeed/3;
 	myGamePiece.gravity = 0.05;
-	//myGamePiece.speedY = 1;
+
 }
 
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
