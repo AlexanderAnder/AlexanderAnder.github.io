@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"Lime", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"white", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -70,25 +70,25 @@ this.update = function(){
 	this.hitRight();
 	verticalModifier = 1;
 	horizontalModifier = 1;
-	for(i=0; i < myObstacles.length; i++){
-		if(myGamePiece.crashLeft(myObstacles[i])){
-		this.x = myObstacles[i].x + myObstacles[i].width; 
+	var gamePieceState = myGamePiece;
+	for(i=0; i < myObstacles.length; i++){		
+	if(myGamePiece.crashTop(myObstacles[i])){
+		gamePieceState.y = myObstacles[i].y - gamePieceState.height;
+		horizontalModifier = 0.5;
+		gamePieceState.gravitySpeed = -(gamePieceState.gravitySpeed * gamePieceState.bounce);
+	}
+	if(myGamePiece.crashBottom(myObstacles[i])){
+		gamePieceState.y = myObstacles[i].y + myObstacles[i].height;
+		horizontalModifier = 0.5;
+	}
+	if(myGamePiece.crashLeft(myObstacles[i])){
+		gamePieceState.x = myObstacles[i].x + myObstacles[i].width; 
 		verticalModifier = 0.5;
 	}
 	 if(myGamePiece.crashRight(myObstacles[i])){
-		 this.x = myObstacles[i].x - this.width;
+		 gamePieceState.x = myObstacles[i].x - gamePieceState.width;
 		 verticalModifier = 0.5;
 	 }
-	if(myGamePiece.crashTop(myObstacles[i])){
-		this.y = myObstacles[i].y - this.height;
-		horizontalModifier = 0.5;
-		this.gravitySpeed = -(this.gravitySpeed * this.bounce);
-	}
-	if(myGamePiece.crashBottom(myObstacles[i])){
-		this.y = myObstacles[i].y + myObstacles[i].height;
-		horizontalModifier = 0.5;
-	}
-	
    }
    this.hitCeiling();
    this.hitBottom();
