@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"aqua", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -119,7 +119,7 @@ this.update = function(){
     var leftEdge = 0;
     if (this.x < leftEdge) {
       this.x = leftEdge;
-	  this.speedX = -(this.speedX * 10);
+	  this.speedX =-( Math.min(event.gamma/10,maxSpeed));
     }
   }
   
@@ -304,11 +304,11 @@ function updateGameArea() {
 
 //Stellt die Hindernisse auf dem Spielfeld auf
 function setObstacles(){
-	myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-45,myGameArea.canvas.height-40);
+	myObstacles[0] = new component(10+delta,50,"gray",(myGameArea.canvas.width)/2-45,myGameArea.canvas.height-40);
 	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-70-delta,300);
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-120,280);
 	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta-20,320+delta);
-	myObstacles[4] = new component(10,50,"gray",53,-10);
+	myObstacles[4] = new component(10+delta,50,"gray",53,-10);
 	myObstacles[5] = new component(30,210,"gray",myGameArea.canvas.width-40,-10);
 	//myObstacles[0] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
 	//myObstacles[1] = new component(50,50,"gray",(myGameArea.canvas.width)/2+100,280);
