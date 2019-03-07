@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"fuchsia", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -72,10 +72,9 @@ this.update = function(){
 	horizontalModifier = 1;
 	for(i=0; i < myObstacles.length; i++){	
   if(myGamePiece.crashTop(myObstacles[i])){	  
-		//this.y = myObstacles[i].y - this.height;
 		this.topSide(myObstacles[i]);
 		horizontalModifier = 0.5;
-		//this.gravitySpeed = -(this.gravitySpeed * this.bounce);
+	
 	}
 	if(myGamePiece.crashBottom(myObstacles[i])){
 		//this.y = myObstacles[i].y + myObstacles[i].height;
@@ -101,6 +100,7 @@ this.update = function(){
     var ceiling = 0;
     if (this.y < ceiling) {
       this.y = ceiling;
+	  this.gravitySpeed = this.gravitySpeed * this.bounce;
     }
   }
   
@@ -235,6 +235,7 @@ this.update = function(){
 		if(distance(myright, mybottom,point,othertop) <
 		distance(myright, mybottom,otherleft,mybottom)){
 			this.y = othertop - this.height;
+			this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 		}else{
 			this.x = otherleft - this.width -delta;
 		}
@@ -246,6 +247,7 @@ this.update = function(){
 		if(distance(myleft, mybottom ,point,othertop) <
 		distance(myleft ,mybottom,otherright,mybottom)){
 			this.y = othertop - this.height;
+			this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 		}else{
 			this.x = otherright + delta;
 		}
