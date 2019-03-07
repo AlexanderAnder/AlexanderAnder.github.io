@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"yellow", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -73,7 +73,7 @@ this.update = function(){
 	for(i=0; i < myObstacles.length; i++){	
   if(myGamePiece.crashTop(myObstacles[i])){	  
 		//this.y = myObstacles[i].y - this.height;
-		side(myObstacles[i]);
+		this.side(myObstacles[i]);
 		horizontalModifier = 0.5;
 		this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 	}
@@ -215,6 +215,25 @@ this.update = function(){
     }
     return crash;
   }
+  
+  this.side = function(otherobj){
+    var mytop = this.y;
+    var mybottom = this.y + (this.height);
+    var othertop = otherobj.y;
+    var otherbottom = otherobj.y + (otherobj.height);
+	var myright = this.x + (this.width);
+	var myleft = this.x
+    var otherleft = otherobj.x;
+	var otherright = otherobj.x + (otherobj.width);
+	if (dist(mytop + this.height/2,myleft + this.width/2,mytop + this.height/2,othertop)<=
+	dist(mytop + this.height/2,myleft + this.width/2,otherright.x,myleft + this.width/2)){
+		this.y = otherobj.y -this.height;
+	}else{
+		this.y = otherobj.y -this.height;
+
+  }	
+}
+
 }
 
 //Aktualisiert das gesamte Spielfeld
@@ -269,28 +288,11 @@ function stopUp(){
 }
 
 //Entfernung zwischen zwei Koordinaten mit Phytagoras
-function dist(x1, y1, x2, y2) {
+function dist(y1, x1, y2, x2) {
          var dx = x1 - x2, dy = y1 - y2;
          return Math.sqrt(dx * dx + dy * dy);
 }
 		
-function side(otherobj){
-var mytop = this.y;
-    var mybottom = this.y + (this.height);
-    var othertop = otherobj.y;
-    var otherbottom = otherobj.y + (otherobj.height);
-	var myright = this.x + (this.width);
-	var myleft = this.x
-    var otherleft = otherobj.x;
-	var otherright = otherobj.x + (otherobj.width);
-	if (dist(mytop + this.height/2,myleft + this.width/2,this.x,othertop)<
-	dist(mytop + this.height/2,myleft + this.width/2,otherright.x,this.y)){
-		this.y = othertop;
-	}else{
-		this.x = otherobj.x;
-
-  }	
-}
 
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
