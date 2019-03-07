@@ -60,7 +60,7 @@ this.update = function(){
  
  //Errechnet die Position des Spielsteins
  this.newPos = function() {
-	 this.sideGravity += speedX;
+	this.sideGravity += this.speedX;
 	this.gravitySpeed = Math.max(this.gravitySpeed + this.gravity, gravityLowerBound);
     this.x = this.x + (this.speedX*horizontalModifier);
 	if(this.speedY >= 0){
