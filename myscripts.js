@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"white", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -62,7 +62,7 @@ this.update = function(){
  this.newPos = function() {
 	this.sideGravity += this.speedX;
 	this.gravitySpeed = Math.max(this.gravitySpeed + this.gravity, gravityLowerBound);
-    this.x = this.x + (this.speedX*horizontalModifier);
+    this.x = this.x + ((this.speedX+this.sideGravity)*horizontalModifier);
 	if(this.speedY >= 0){
     this.y = this.y + ((this.speedY + this.gravitySpeed)*horizontalModifier);
 	}else{
@@ -121,7 +121,7 @@ this.update = function(){
     var leftEdge = 0;
     if (this.x < leftEdge) {
       this.x = leftEdge;
-	  this.speedX= -(this.sideGravity * this.bounce);
+	  this.sideGravity= -(this.sideGravity * this.bounce);
     }
   }
   
@@ -130,7 +130,7 @@ this.update = function(){
     var rightEdge = myGameArea.canvas.width - this.width;
     if (this.x > rightEdge) {
       this.x = rightEdge;
-	  this.speedX = -(this.sideGravity * this.bounce);
+	  this.sideGravity = -(this.sideGravity * this.bounce);
     }
   }
   
@@ -306,7 +306,7 @@ function updateGameArea() {
 
 //Stellt die Hindernisse auf dem Spielfeld auf
 function setObstacles(){
-	myObstacles[0] = new component(5  ,50,"gray",(myGameArea.canvas.width)/2-45,myGameArea.canvas.height-40);
+	myObstacles[0] = new component(10+delta,50,"gray",(myGameArea.canvas.width)/2-45,myGameArea.canvas.height-40);
 	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-70-delta,300);
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-120,280);
 	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta-20,320+delta);
@@ -320,8 +320,10 @@ function setObstacles(){
 function deviceOrientationListener(event) {
 	if (event.gamma > 0){
 	myGamePiece.speedX = Math.min(event.gamma/10,maxSpeed);
+	sideGravity += 0.1;
 	}else{
     myGamePiece.speedX = Math.max(event.gamma/10,minSpeed);
+	sideGravity -= 0.1;
 	}
 }
 
