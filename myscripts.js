@@ -285,11 +285,12 @@ var mytop = this.y;
 	var otherright = otherobj.x + (otherobj.width);
 	if (dist(mytop + this.height/2,myleft + this.width/2,this.x,othertop)<
 	dist(mytop + this.height/2,myleft + this.width/2,otherright.x,this.y)){
-		this.y = otherobj.y;
+		this.y = othertop;
 	}else{
 		this.x = otherobj.x;
 
-}	
+  }	
+}
 
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
  if (window.DeviceOrientationEvent) {
