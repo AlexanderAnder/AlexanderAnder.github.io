@@ -47,6 +47,7 @@ function component(width, height, color, x, y) {
     this.gravity = 0.1;
     this.gravitySpeed = 0;
 	this.bounce = 0.4;
+	this.sideGravity = 0;
     this.x = x;
     this.y = y;  
 	
@@ -59,6 +60,7 @@ this.update = function(){
  
  //Errechnet die Position des Spielsteins
  this.newPos = function() {
+	 this.sideGravity += speedX;
 	this.gravitySpeed = Math.max(this.gravitySpeed + this.gravity, gravityLowerBound);
     this.x = this.x + (this.speedX*horizontalModifier);
 	if(this.speedY >= 0){
@@ -119,7 +121,7 @@ this.update = function(){
     var leftEdge = 0;
     if (this.x < leftEdge) {
       this.x = leftEdge;
-	  this.speedX =-( Math.min(event.gamma/10,maxSpeed));
+	  this.speedX= -(this.sideGravity * this.bounce);
     }
   }
   
@@ -128,7 +130,7 @@ this.update = function(){
     var rightEdge = myGameArea.canvas.width - this.width;
     if (this.x > rightEdge) {
       this.x = rightEdge;
-	  this.speedX = -(this.speedX * 10);
+	  this.speedX = -(this.sideGravity * this.bounce);
     }
   }
   
@@ -304,7 +306,7 @@ function updateGameArea() {
 
 //Stellt die Hindernisse auf dem Spielfeld auf
 function setObstacles(){
-	myObstacles[0] = new component(10+delta,50,"gray",(myGameArea.canvas.width)/2-45,myGameArea.canvas.height-40);
+	myObstacles[0] = new component(5  ,50,"gray",(myGameArea.canvas.width)/2-45,myGameArea.canvas.height-40);
 	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-70-delta,300);
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-120,280);
 	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta-20,320+delta);
