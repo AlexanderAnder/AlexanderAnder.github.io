@@ -228,26 +228,26 @@ this.update = function(){
 	var left = distance(myleft + this.width/2, mytop + this.height/2,otherleft,othertop) <
 	distance(myright + this.width/2, mytop + this.height/2,otherright,othertop);
 	if (left){
-		var point = myleft + width/2; 
+		var point = myright; 
 		if(point < otherleft){
 			point = otherleft;
 		}
-		if(distance(myleft + this.width/2, mytop + this.height/2,point,othertop) <
-		distance(myleft + this.width/2, mytop + this.height/2,otherleft,mytop + this.height/2)){
+		if(distance(myright, mytop + this.height/2,point,othertop) <
+		distance(myright, mytop + this.height/2,otherleft,mytop + this.height/2)){
 			this.y = othertop - this.height;
 		}else{
 			this.x = otherleft - this.width;
 		}
 	}else{
-		var point = myleft + width/2; 
+		var point = myleft; 
 		if(point > otherright){
 			point = otherright;
 		}
-		if(distance(myleft + this.width/2, mytop + this.height/2,point,othertop) <
-		distance(myleft + this.width/2, mytop + this.height/2,otherright,mytop + this.height/2)){
+		if(distance(myleft, mytop + this.height/2,point,othertop) <
+		distance(myleft , mytop + this.height/2,otherright,mytop + this.height/2)){
 			this.y = othertop - this.height;
 		}else{
-			this.x = otherright + this.width;
+			this.x = otherright;
 		}
 	}
 }
