@@ -237,7 +237,7 @@ this.update = function(){
 		distance(myright, mytop + this.height/2,otherleft,mytop + this.height/2)){
 			this.y = othertop - this.height;
 		}else{
-			this.x = otherleft - this.width -delta;
+			this.x = otherleft - this.width -0.1;
 		}
 	}else{
 		var point = myleft; 
@@ -248,7 +248,7 @@ this.update = function(){
 		distance(myleft , mytop + this.height/2,otherright,mytop + this.height/2)){
 			this.y = othertop - this.height;
 		}else{
-			this.x = otherright + delta;
+			this.x = otherright + 0.1;
 		}
 	}
 }
