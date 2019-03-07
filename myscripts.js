@@ -119,6 +119,7 @@ this.update = function(){
     var leftEdge = 0;
     if (this.x < leftEdge) {
       this.x = leftEdge;
+	  this.speedX = -(this.speedX * this.bounce);
     }
   }
   
@@ -127,6 +128,7 @@ this.update = function(){
     var rightEdge = myGameArea.canvas.width - this.width;
     if (this.x > rightEdge) {
       this.x = rightEdge;
+	  this.speedX = -(this.speedX * this.bounce);
     }
   }
   
@@ -307,7 +309,7 @@ function setObstacles(){
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-120,280);
 	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta-20,320+delta);
 	myObstacles[4] = new component(10,50,"gray",53,-10);
-	myObstacles[5] = new component(10,210,"gray",myGameArea.canvas.width-40,-10);
+	myObstacles[5] = new component(30,210,"gray",myGameArea.canvas.width-40,-10);
 	//myObstacles[0] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
 	//myObstacles[1] = new component(50,50,"gray",(myGameArea.canvas.width)/2+100,280);
 }
