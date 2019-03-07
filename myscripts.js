@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"black", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"white", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -75,7 +75,7 @@ this.update = function(){
 		//this.y = myObstacles[i].y - this.height;
 		this.topSide(myObstacles[i]);
 		horizontalModifier = 0.5;
-		verticalModifier = 2;
+		verticalModifier = 100;
 		this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 	}
 	if(myGamePiece.crashBottom(myObstacles[i])){
