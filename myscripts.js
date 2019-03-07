@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"red", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -77,7 +77,7 @@ this.update = function(){
 	
 	}
 	if(myGamePiece.crashBottom(myObstacles[i])){
-		//this.y = myObstacles[i].y + myObstacles[i].height;
+	    this.bottomSide(myObstacles[i]);
 		horizontalModifier = 0.5;
 	}	
 	if(myGamePiece.crashLeft(myObstacles[i])){
@@ -100,7 +100,7 @@ this.update = function(){
     var ceiling = 0;
     if (this.y < ceiling) {
       this.y = ceiling;
-	  this.gravitySpeed = this.gravitySpeed * this.bounce*10;
+	  this.gravitySpeed = -(this.gravitySpeed * this.bounce*2);
     }
   }
   
@@ -213,11 +213,9 @@ this.update = function(){
   }
   
   // Prueft ob der Spielstein nach links,rechts oder oben kommt
-  this.topSide = function(otherobj){
-    var mytop = this.y;
+    this.topSide = function(otherobj){
     var mybottom = this.y + (this.height);
     var othertop = otherobj.y;
-    var otherbottom = otherobj.y + (otherobj.height);
 	var myright = this.x + (this.width);
 	var myleft = this.x
     var otherleft = otherobj.x;
@@ -245,6 +243,44 @@ this.update = function(){
 		distance(myleft ,mybottom,otherright,mybottom)){
 			this.y = othertop - this.height;
 			this.gravitySpeed = -(this.gravitySpeed * this.bounce);
+		}else{
+			this.x = otherright + delta;
+		}
+	}
+}
+// Prueft ob der Spielstein nach links,rechts oder unten kommt
+  this.bottomSide = function(otherobj){
+    var mytop = this.y;
+    var mybottom = this.y + (this.height);
+    var othertop = otherobj.y;
+    var otherbottom = otherobj.y + (otherobj.height);
+	var myright = this.x + (this.width);
+	var myleft = this.x
+    var otherleft = otherobj.x;
+	var otherright = otherobj.x + (otherobj.width);
+	var left = distance(myleft + this.width/2, mytop,otherleft,otherbottom) <
+	distance(myright + this.width/2, mytop,otherright,otherbottom);
+	if (left){
+		var point = myright; 
+		if(point < otherleft-this.width){
+			point = otherleft;
+		}
+		if(distance(myright, mytop,point,otherbottom) <
+		distance(myright, mytop,otherleft,mytop)){
+			this.y = otherbottom;
+			this.gravitySpeed = -(this.gravitySpeed * this.bounce*2);
+		}else{
+			this.x = otherleft - this.width -delta;
+		}
+	}else{
+		var point = myleft; 
+		if(point > otherright+this.width){
+			point = otherright;
+		}
+		if(distance(myleft, mytop ,point,otherbottom) <
+		distance(myleft ,mytop,otherright,mytop)){
+			this.y = otherbottom - this;
+			this.gravitySpeed = -(this.gravitySpeed * this.bounce*2);
 		}else{
 			this.x = otherright + delta;
 		}
