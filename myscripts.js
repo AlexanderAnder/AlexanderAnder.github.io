@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"teal", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"aqua", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -119,7 +119,7 @@ this.update = function(){
     var leftEdge = 0;
     if (this.x < leftEdge) {
       this.x = leftEdge;
-	  this.speedX = -(this.speedX * this.bounce);
+	  this.speedX = -(this.speedX * 10);
     }
   }
   
@@ -128,7 +128,7 @@ this.update = function(){
     var rightEdge = myGameArea.canvas.width - this.width;
     if (this.x > rightEdge) {
       this.x = rightEdge;
-	  this.speedX = -(this.speedX * this.bounce);
+	  this.speedX = -(this.speedX * 10);
     }
   }
   
@@ -226,7 +226,7 @@ this.update = function(){
 	distance(myright + this.width/2, mybottom,otherright,othertop);
 	if (left){
 		var point = myright; 
-		if(point < otherleft-this.width){
+		if(point < otherleft){
 			point = otherleft;
 		}
 		if(distance(myright, mybottom,point,othertop) <
@@ -238,7 +238,7 @@ this.update = function(){
 		}
 	}else{
 		var point = myleft; 
-		if(point > otherright+this.width){
+		if(point > otherright){
 			point = otherright;
 		}
 		if(distance(myleft, mybottom ,point,othertop) <
@@ -264,7 +264,7 @@ this.update = function(){
 	distance(myright + this.width/2, mytop,otherright,otherbottom);
 	if (left){
 		var point = myright; 
-		if(point < otherleft-this.width){
+		if(point < otherleft){
 			point = otherleft;
 		}
 		if(distance(myright, mytop,point,otherbottom) <
@@ -276,7 +276,7 @@ this.update = function(){
 		}
 	}else{
 		var point = myleft; 
-		if(point > otherright+this.width){
+		if(point > otherright){
 			point = otherright;
 		}
 		if(distance(myleft, mytop ,point,otherbottom) <
