@@ -247,7 +247,7 @@ this.update = function(){
 		distance(myleft + this.width/2, mytop + this.height/2,otherright,mytop + this.height/2)){
 			this.y = othertop - this.height;
 		}else{
-			this.x = otherright - this.width;
+			this.x = otherright + this.width;
 		}
 	}
 }
@@ -267,12 +267,14 @@ function updateGameArea() {
 
 //Stellt die Hindernisse auf dem Spielfeld auf
 function setObstacles(){
-	myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-40);
+	/*myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-40);
 	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-50-delta,300);
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
 	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta,320+delta);
 	myObstacles[4] = new component(10,50,"gray",33,-10);
-	myObstacles[5] = new component(10,210,"gray",myGameArea.canvas.width-20,-10);
+	myObstacles[5] = new component(10,210,"gray",myGameArea.canvas.width-20,-10);*/
+	myObstacles[0] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
+	myObstacles[1] = new component(50,50,"gray",(myGameArea.canvas.width)/2+100,280);
 }
 
 //Bewegungssteuerung des Spielsteins
