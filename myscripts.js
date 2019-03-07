@@ -62,7 +62,8 @@ this.update = function(){
  this.newPos = function() {
 	this.sideGravity += this.speedX;
 	this.gravitySpeed = Math.max(this.gravitySpeed + this.gravity, gravityLowerBound);
-    this.x = this.x + ((this.speedX+this.sideGravity)*horizontalModifier);
+	
+    this.x = this.x + (this.speedX*horizontalModifier);
 	if(this.speedY >= 0){
     this.y = this.y + ((this.speedY + this.gravitySpeed)*horizontalModifier);
 	}else{
