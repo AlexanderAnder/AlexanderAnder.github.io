@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"red", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"teal", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -100,7 +100,7 @@ this.update = function(){
     var ceiling = 0;
     if (this.y < ceiling) {
       this.y = ceiling;
-	  this.gravitySpeed = -(this.gravitySpeed * this.bounce*2);
+	  this.gravitySpeed = -(this.gravitySpeed * this.bounce);
     }
   }
   
@@ -268,7 +268,7 @@ this.update = function(){
 		if(distance(myright, mytop,point,otherbottom) <
 		distance(myright, mytop,otherleft,mytop)){
 			this.y = otherbottom;
-			this.gravitySpeed = -(this.gravitySpeed * this.bounce*2);
+			this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 		}else{
 			this.x = otherleft - this.width -delta;
 		}
@@ -279,8 +279,8 @@ this.update = function(){
 		}
 		if(distance(myleft, mytop ,point,otherbottom) <
 		distance(myleft ,mytop,otherright,mytop)){
-			this.y = otherbottom - this;
-			this.gravitySpeed = -(this.gravitySpeed * this.bounce*2);
+			this.y = otherbottom;
+			this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 		}else{
 			this.x = otherright + delta;
 		}
@@ -302,12 +302,12 @@ function updateGameArea() {
 
 //Stellt die Hindernisse auf dem Spielfeld auf
 function setObstacles(){
-	myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-40);
-	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-50-delta,300);
-	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
-	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta,320+delta);
-	myObstacles[4] = new component(10,50,"gray",33,-10);
-	myObstacles[5] = new component(10,210,"gray",myGameArea.canvas.width-20,-10);
+	myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-45,myGameArea.canvas.height-40);
+	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-70-delta,300);
+	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-120,280);
+	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta-20,320+delta);
+	myObstacles[4] = new component(10,50,"gray",53,-10);
+	myObstacles[5] = new component(10,210,"gray",myGameArea.canvas.width-40,-10);
 	//myObstacles[0] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
 	//myObstacles[1] = new component(50,50,"gray",(myGameArea.canvas.width)/2+100,280);
 }
