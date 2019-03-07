@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"yellow", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"lime", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -73,7 +73,7 @@ this.update = function(){
 	for(i=0; i < myObstacles.length; i++){	
   if(myGamePiece.crashTop(myObstacles[i])){	  
 		//this.y = myObstacles[i].y - this.height;
-		this.side(myObstacles[i]);
+		this.topSide(myObstacles[i]);
 		horizontalModifier = 0.5;
 		this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 	}
@@ -82,11 +82,11 @@ this.update = function(){
 		horizontalModifier = 0.5;
 	}	
 	if(myGamePiece.crashLeft(myObstacles[i])){
-		//this.x = myObstacles[i].x + myObstacles[i].width; 
+		this.x = myObstacles[i].x + myObstacles[i].width; 
 		verticalModifier = 0.5;
 	}
 	 if(myGamePiece.crashRight(myObstacles[i])){
-		// this.x = myObstacles[i].x - this.width;
+		this.x = myObstacles[i].x - this.width;
 		 verticalModifier = 0.5;
 	 }
 	
@@ -216,7 +216,7 @@ this.update = function(){
     return crash;
   }
   
-  this.side = function(otherobj){
+  this.topSide = function(otherobj){
     var mytop = this.y;
     var mybottom = this.y + (this.height);
     var othertop = otherobj.y;
@@ -225,13 +225,31 @@ this.update = function(){
 	var myleft = this.x
     var otherleft = otherobj.x;
 	var otherright = otherobj.x + (otherobj.width);
-	if (dist(mytop + this.height/2,myleft + this.width/2,mytop + this.height/2,othertop)<=
-	dist(mytop + this.height/2,myleft + this.width/2,otherright.x,myleft + this.width/2)){
-		this.y = otherobj.y -this.height;
+	var left = distance(myleft + this.width/2, mytop + this.height/2,otherleft,othertop) <
+	distance(myright + this.width/2, mytop + this.height/2,otherright,othertop);
+	if (left){
+		var point = this.left + width/2; 
+		if(point < otherleft){
+			point = otherleft;
+		}
+		if(distance(myleft + this.width/2, mytop + this.height/2,point,othertop) <
+		distance(myleft + this.width/2, mytop + this.height/2,otherleft,mytop + this.height/2)){
+			this.y = othertop - this.height;
+		}else{
+			this.x = otherleft - this.width;
+		}
 	}else{
-		this.y = otherobj.y -this.height;
-
-  }	
+		var point = this.left + width/2; 
+		if(point > otherright){
+			point = otherright;
+		}
+		if(distance(myleft + this.width/2, mytop + this.height/2,point,othertop) <
+		distance(myleft + this.width/2, mytop + this.height/2,otherright,mytop + this.height/2)){
+			this.y = othertop - this.height;
+		}else{
+			this.x = otherright - this.width;
+		}
+	}
 }
 
 }
@@ -252,7 +270,7 @@ function setObstacles(){
 	myObstacles[0] = new component(10,50,"gray",(myGameArea.canvas.width)/2-25,myGameArea.canvas.height-40);
 	myObstacles[1] = new component(50,100,"gray",(myGameArea.canvas.width)/2-50-delta,300);
 	myObstacles[2] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
-	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta,320);
+	myObstacles[3] = new component(50,50,"gray",(myGameArea.canvas.width)/2+delta,320+delta);
 	myObstacles[4] = new component(10,50,"gray",33,-10);
 	myObstacles[5] = new component(10,210,"gray",myGameArea.canvas.width-20,-10);
 }
@@ -287,9 +305,10 @@ function stopUp(){
 
 }
 
-//Entfernung zwischen zwei Koordinaten mit Phytagoras
-function dist(y1, x1, y2, x2) {
-         var dx = x1 - x2, dy = y1 - y2;
+//Entfernung zwischen zwei Punkten mit Phytagoras
+function distance(x1, y1, x2, y2) {
+         var dx = x1 - x2
+		 var dy = y1 - y2;
          return Math.sqrt(dx * dx + dy * dy);
 }
 		
