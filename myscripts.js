@@ -15,7 +15,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"aqua", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"lime", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -51,7 +51,7 @@ function component(width, height, color, x, y) {
     this.gravity = 0.1;
     this.gravitySpeed = 0;
 	this.bounce = 0.4;
-	this.sideBounce = 0.4;
+	this.sideBounce = 0.1;
 	this.sideGravity = 0;
     this.x = x;
     this.y = y;  
@@ -65,7 +65,6 @@ this.update = function(){
  
  //Errechnet die Position des Spielsteins
  this.newPos = function() {
-	this.sideGravity += this.speedX;
 	this.gravitySpeed = Math.max(this.gravitySpeed + this.gravity, gravityLowerBound);
 	if(this.speedX >=0){
     this.x = this.x + Math.min(maxSpeed,((this.speedX+this.sideGravity)*horizontalModifier));
