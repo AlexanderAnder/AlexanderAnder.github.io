@@ -51,7 +51,7 @@ function component(width, height, color, x, y) {
     this.gravity = 0.1;
     this.gravitySpeed = 0;
 	this.bounce = 0.4;
-	this.sideBounce = 2;
+	this.sideBounce = 0.8;
 	this.sideGravity = 0;
     this.x = x;
     this.y = y;  
@@ -360,7 +360,7 @@ function moveUp(){
 
 //Bewegt den Spielstein nach oben
 function moving(){
-	myGamePiece.gravity = -0.1;
+	myGamePiece.gravity = -0.05;
 	
 }
 
@@ -368,7 +368,7 @@ function moving(){
 function stopUp(){
 	clearInterval(timer);
     myGamePiece.gravitySpeed = myGamePiece.gravitySpeed/3;
-	myGamePiece.gravity = 0.1;
+	myGamePiece.gravity = 0.05;
 
 }
 
