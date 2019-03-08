@@ -7,15 +7,15 @@ var maxSpeedUp = -5;
 var gravityLowerBound = -5;
 var horizontalModifier = 1;
 var verticalModifier = 1;
-var sideGravityMax = 3; 
-var sideGravityMin = -3;
+//var sideGravityMax = 3; 
+//var sideGravityMin = -3;
 var left = false;
 var right = false;
 var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"fuchsia", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"cyan", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -51,8 +51,8 @@ function component(width, height, color, x, y) {
     this.gravity = 0.1;
     this.gravitySpeed = 0;
 	this.bounce = 0.4;
-	this.sideBounce = 1.5;
-	this.sideGravity = 0;
+	//this.sideBounce = 1.5;
+	//this.sideGravity = 0;
     this.x = x;
     this.y = y;  
 	
@@ -66,11 +66,11 @@ this.update = function(){
  //Errechnet die Position des Spielsteins
  this.newPos = function() {
 	this.gravitySpeed = Math.max(this.gravitySpeed + this.gravity, gravityLowerBound);
-	if(this.speedX >=0){
-    this.x = this.x + Math.min(maxSpeed,((this.speedX+this.sideGravity)*horizontalModifier));
-	}else{
-		this.x = this.x + Math.max(minSpeed,((this.speedX+this.sideGravity)*horizontalModifier));
-	}
+	//if(this.speedX >=0){
+    this.x = this.x + Math.min(maxSpeed,((this.speedX)*horizontalModifier));
+	//}else{
+	// 	this.x = this.x + Math.max(minSpeed,((this.speedX+this.sideGravity)*horizontalModifier));
+	//}
 	if(this.speedY >= 0){
     this.y = this.y + ((this.speedY + this.gravitySpeed)*horizontalModifier);
 	}else{
@@ -129,7 +129,7 @@ this.update = function(){
     var leftEdge = 0;
     if (this.x < leftEdge) {
       this.x = leftEdge;
-	  this.sideGravity = -(this.sideGravity * this.sideBounce);
+	 // this.sideGravity = -(this.sideGravity * this.sideBounce);
     }
   }
   
@@ -138,7 +138,7 @@ this.update = function(){
     var rightEdge = myGameArea.canvas.width - this.width;
     if (this.x > rightEdge) {
       this.x = rightEdge;
-	  this.sideGravity = -(this.sideGravity * this.sideBounce);
+	 // this.sideGravity = -(this.sideGravity * this.sideBounce);
     }
   }
   
@@ -297,8 +297,7 @@ this.update = function(){
 			this.x = otherright + delta;
 		}
 	}
-}
-
+ }
 }
 
 //Aktualisiert das gesamte Spielfeld
@@ -327,32 +326,32 @@ function setObstacles(){
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
 	if (event.gamma > 0){
-	 if(event.gamma > 10){
+	/* if(event.gamma > 10){
 		right = true;
 		}
 	if(left && right ){
 		left = false;
 		right = false;
 		myGamePiece.sideGravity = 0;
-	} 
+	} */
 	myGamePiece.speedX = Math.min(event.gamma/10,maxSpeed);
 	
-	 if(myGamePiece.sideGravity < sideGravityMax){
+	 /*if(myGamePiece.sideGravity < sideGravityMax){
 	 myGamePiece.sideGravity += 1;
-	 }
+	 }*/
 	}else{
-	  if(event.gamma < -5){
+	  /*if(event.gamma < -5){
 		 left = true;
 		}
 	if(left && right){
 		left = false;
 		right = false;
 		sideGravity = 0;
-	}
+	}*/
      myGamePiece.speedX = Math.max(event.gamma/10,minSpeed);
-	 if(myGamePiece.sideGravity > sideGravityMin){
+	 /*if(myGamePiece.sideGravity > sideGravityMin){
 	 myGamePiece.sideGravity -= 1;
-	 }
+	 }*/
 	}
 }
 
