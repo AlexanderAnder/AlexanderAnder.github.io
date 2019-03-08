@@ -1,8 +1,8 @@
 var myGamePiece;
 var myObstacles = [];
 var delta = 0.001;
-var maxSpeed = 3;
-var minSpeed = -3;
+var maxSpeed = 5;
+var minSpeed = -5;
 var maxSpeedUp = -5;
 var gravityLowerBound = -5;
 var horizontalModifier = 1;
@@ -15,7 +15,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"black", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"lime", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -51,7 +51,7 @@ function component(width, height, color, x, y) {
     this.gravity = 0.1;
     this.gravitySpeed = 0;
 	this.bounce = 0.4;
-	this.sideBounce = 1.5;
+	this.sideBounce = 0.99;
 	this.sideGravity = 0;
     this.x = x;
     this.y = y;  
@@ -334,8 +334,9 @@ function deviceOrientationListener(event) {
 		myGamePiece.sideGravity = 0;
 	} */
 	myGamePiece.speedX = Math.min(event.gamma/10,maxSpeed);
+	
 	 if(myGamePiece.sideGravity < sideGravityMax){
-	 myGamePiece.sideGravity += 0.5;
+	 myGamePiece.sideGravity += 1;
 	 }
 	}else{
     /*left = true;
@@ -346,7 +347,7 @@ function deviceOrientationListener(event) {
 	}*/
      myGamePiece.speedX = Math.max(event.gamma/10,minSpeed);
 	 if(myGamePiece.sideGravity > sideGravityMin){
-	 myGamePiece.sideGravity -= 0.5;
+	 myGamePiece.sideGravity -= 1;
 	 }
 	}
 }
@@ -360,7 +361,7 @@ function moveUp(){
 
 //Bewegt den Spielstein nach oben
 function moving(){
-	myGamePiece.gravity = -0.05;
+	myGamePiece.gravity = -0.1;
 	
 }
 
