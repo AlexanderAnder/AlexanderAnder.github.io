@@ -1,8 +1,8 @@
 var myGamePiece;
 var myObstacles = [];
 var delta = 0.001;
-var maxSpeed = 5;
-var minSpeed = -5;
+var maxSpeed = 2;
+var minSpeed = -2;
 var maxSpeedUp = -5;
 var gravityLowerBound = -5;
 var horizontalModifier = 1;
@@ -11,7 +11,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"teal", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -47,7 +47,7 @@ function component(width, height, color, x, y) {
     this.gravity = 0.1;
     this.gravitySpeed = 0;
 	this.bounce = 0.4;
-	this.sideBounce = 0.1;
+	this.sideBounce = 0.4;
 	this.sideGravity = 0;
     this.x = x;
     this.y = y;  
@@ -325,10 +325,10 @@ function setObstacles(){
 function deviceOrientationListener(event) {
 	if (event.gamma > 0){
 	myGamePiece.speedX = Math.min(event.gamma/10,maxSpeed);
-	sideGravity += 0.1;
+	sideGravity += 0.01;
 	}else{
     myGamePiece.speedX = Math.max(event.gamma/10,minSpeed);
-	sideGravity -= 0.1;
+	sideGravity -= 0.01;
 	}
 }
 
