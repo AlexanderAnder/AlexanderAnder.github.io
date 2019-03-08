@@ -313,12 +313,12 @@ function updateGameArea() {
 
 //Stellt die Hindernisse auf dem Spielfeld auf
 function setObstacles(){
-	myObstacles[0] = new component(40,40,"gray",(myGameArea.canvas.width)*(2/5)-20,myGameArea.canvas.height*(2/5)-20);
-	myObstacles[1] = new component(40,40,"gray",(myGameArea.canvas.width)*(3/5)-20,myGameArea.canvas.height*(3/5)-20);
-	myObstacles[2] = new component(40,40,"gray",(myGameArea.canvas.width)*(4/5)-20,myGameArea.canvas.height*(2/5)-20);
-	myObstacles[3] = new component(40,40,"gray",(myGameArea.canvas.width)*(3/5)-20,myGameArea.canvas.height*(4/5)-20);
-	myObstacles[4] = new component(20,20,"gray",(myGameArea.canvas.width)*(2/5)-10,myGameArea.canvas.height*(4/5)-10);
-	myObstacles[5] = new component(20,20,"gray",(myGameArea.canvas.width)*(4/5)-10,myGameArea.canvas.height*(4/5)-10);
+	myObstacles[0] = new component(40,40,"gray",(myGameArea.canvas.width)*(2/10)-20,myGameArea.canvas.height*(2/10)-20);
+	myObstacles[1] = new component(40,40,"gray",(myGameArea.canvas.width)*(5/10)-20,myGameArea.canvas.height*(5/10)-20);
+	myObstacles[2] = new component(40,40,"gray",(myGameArea.canvas.width)*(8/10)-20,myGameArea.canvas.height*(2/10)-20);
+	myObstacles[3] = new component(40,40,"gray",(myGameArea.canvas.width)*(5/10)-20,myGameArea.canvas.height*(8/10)-20);
+	myObstacles[4] = new component(20,20,"gray",(myGameArea.canvas.width)*(2/10)-10,myGameArea.canvas.height*(9/10)-10);
+	myObstacles[5] = new component(20,20,"gray",(myGameArea.canvas.width)*(8/10)-10,myGameArea.canvas.height*(9/10)-10);
 	//myObstacles[0] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
 	//myObstacles[1] = new component(50,50,"gray",(myGameArea.canvas.width)/2+100,280);
 }
