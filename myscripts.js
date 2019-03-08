@@ -1,14 +1,14 @@
 var myGamePiece;
 var myObstacles = [];
 var delta = 0.001;
-var maxSpeed = 5;
-var minSpeed = -5;
+var maxSpeed = 3;
+var minSpeed = -3;
 var maxSpeedUp = -5;
 var gravityLowerBound = -5;
 var horizontalModifier = 1;
 var verticalModifier = 1;
-var sideGravityMax = 5; 
-var sideGravityMin = -5;
+var sideGravityMax = 3; 
+var sideGravityMin = -3;
 var left = false;
 var right = false;
 var timer;
@@ -51,7 +51,7 @@ function component(width, height, color, x, y) {
     this.gravity = 0.1;
     this.gravitySpeed = 0;
 	this.bounce = 0.4;
-	this.sideBounce = 0.8;
+	this.sideBounce = 1.5;
 	this.sideGravity = 0;
     this.x = x;
     this.y = y;  
@@ -368,7 +368,7 @@ function moving(){
 function stopUp(){
 	clearInterval(timer);
     myGamePiece.gravitySpeed = myGamePiece.gravitySpeed/3;
-	myGamePiece.gravity = 0.05;
+	myGamePiece.gravity = 0.1;
 
 }
 
