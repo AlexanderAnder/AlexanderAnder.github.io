@@ -15,7 +15,7 @@ var timer;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"navy", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"white", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 }
@@ -327,23 +327,23 @@ function setObstacles(){
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
 	if (event.gamma > 0){
-    right = true;
+  /*  right = true;
 	if(left && right){
 		left = false;
 		right = false;
 		myGamePiece.sideGravity = 0;
-	}
+	} */
 	myGamePiece.speedX = Math.min(event.gamma/10,maxSpeed);
 	 if(myGamePiece.sideGravity < sideGravityMax){
 	 myGamePiece.sideGravity += 0.5;
 	 }
 	}else{
-    left = true;
+    /*left = true;
 	if(left && right){
 		left = false;
 		right = false;
 		sideGravity = 0;
-	}
+	}*/
      myGamePiece.speedX = Math.max(event.gamma/10,minSpeed);
 	 if(myGamePiece.sideGravity < sideGravityMin){
 	 myGamePiece.sideGravity -= 0.5;
