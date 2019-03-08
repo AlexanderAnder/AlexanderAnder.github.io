@@ -17,7 +17,7 @@ var lootGet = true;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"cyan", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"white", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 	
@@ -409,13 +409,13 @@ function everyinterval(n) {
 }	 
 
 function lootPos(){
-	minHeight = 0;
-    maxHeight = myGameArea.canvas.height;
+	minHeight = 10;
+    maxHeight = myGameArea.canvas.height-10;
     height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
-	minWidth = 0;
-    maxWidth = myGameArea.canvas.height;
+	minWidth = 10;
+    maxWidth = myGameArea.canvas.height-10;
     width = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
-	loot = new component(5,5,getRandomColor,width,height);
+	loot = new component(5,5,getRandomColor(),width,height);
  }
  
  function getRandomColor() {
