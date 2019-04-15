@@ -76,6 +76,7 @@ this.update = function(){
 	this.hitRight();
 	verticalModifier = 1;
 	horizontalModifier = 1;
+	myGamePiece.gotLoot(loot);
 	if (lootGet == true){
 		lootPos();
 		lootGet = false;
@@ -298,6 +299,13 @@ this.update = function(){
 		}
 	}
  }
+ this.gotLoot = function(otherobj){
+	 if(this.crashBottom || this.crashLeft || this.crashRight || this.crashTop){
+		 lootGet = true;
+	 }
+	 
+ }
+ 
 }
 
 //Aktualisiert das gesamte Spielfeld
