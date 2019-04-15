@@ -297,7 +297,7 @@ this.update = function(){
 	}
  }
  this.gotLoot = function(otherobj){
-	 if(this.crashBottom(otherobj) && this.crashLeft(otherobj) && this.crashRight(otherobj) && this.crashTop(otherobj)){
+	 if(this.crashBottom(otherobj) || this.crashLeft(otherobj) || this.crashRight(otherobj) || this.crashTop(otherobj)){
 		 lootPos();
 	 }
 	 
@@ -383,10 +383,10 @@ function everyinterval(n) {
 
 function lootPos(){
 	minHeight = 10;
-    maxHeight = myGameArea.canvas.height-10;
+    maxHeight = myGameArea.canvas.height/2-10;
     height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
 	minWidth = 10;
-    maxWidth = myGameArea.canvas.height-10;
+    maxWidth = myGameArea.canvas.height/2-10;
     width = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
 	loot = new component(5,5,getRandomColor(),width,height);
  }
