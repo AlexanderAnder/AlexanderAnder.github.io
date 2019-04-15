@@ -15,7 +15,7 @@ var lootGet = true;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"white", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 	lootPos();
@@ -383,13 +383,35 @@ function everyinterval(n) {
 
 function lootPos(){
 	minHeight = 10;
-    maxHeight = myGameArea.canvas.height/2-10;
+    maxHeight = myGameArea.canvas.height-10;
     height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
 	minWidth = 10;
-    maxWidth = myGameArea.canvas.height/2-10;
+    maxWidth = myGameArea.canvas.width-10;
     width = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
-	loot = new component(5,5,"red",width,height);
+	loot = new component(5,5,"lime",width,height);
+	
+	for(i=0; i < myObstacles.length; i++){	
+	if (lootInside(loot,myObstacles[i])){
+		lootPos();
+  }
  }
+}
+ 
+function lootInside(loot,obstacle){
+	var mytop = loot.y;
+    var mybottom = loot.y + (loot.height);
+    var othertop = otherobj.y;
+    var otherbottom = otherobj.y + (otherobj.height);
+	var myright = loot.x + (loot.width);
+	var myleft = loot.x
+    var otherleft = otherobj.x;
+	var otherright = otherobj.x + (otherobj.width);
+	var inside = false;
+	if(mytop < othertop && mybottom > otherbottom && myright > otherright && myleft < otherleft){
+		inside = true;
+	}
+}
+	
  
  function getRandomColor() {
   var letters = '0123456789ABCDEF';
