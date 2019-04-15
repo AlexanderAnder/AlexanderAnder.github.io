@@ -138,6 +138,7 @@ this.update = function(){
     var rightEdge = myGameArea.canvas.width - this.width;
     if (this.x > rightEdge) {
       this.x = rightEdge;
+	 // this.sideGravity = -(this.sideGravity * this.sideBounce);
     }
   }
   
@@ -319,18 +320,15 @@ function setObstacles(){
 	myObstacles[3] = new component(40,40,"gray",(myGameArea.canvas.width)*(5/10)-20,myGameArea.canvas.height*(8/10)-20);
 	myObstacles[4] = new component(20,20,"gray",(myGameArea.canvas.width)*(2/10)-10,myGameArea.canvas.height*(9/10)-10);
 	myObstacles[5] = new component(20,20,"gray",(myGameArea.canvas.width)*(8/10)-10,myGameArea.canvas.height*(9/10)-10);
-	
+
+}
 
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
 	if (event.gamma > 0){
-	
 	myGamePiece.speedX = Math.min(event.gamma/5,maxSpeed);
-	
 	}else{
-	 
      myGamePiece.speedX = Math.max(event.gamma/5,minSpeed);
-	 
 	}
 }
 
