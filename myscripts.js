@@ -303,7 +303,7 @@ this.update = function(){
  }
  this.gotLoot = function(otherobj){
 	 if(this.crashBottom(otherobj) || this.crashLeft(otherobj) || this.crashRight(otherobj) || this.crashTop(otherobj)){
-		 score++;
+		 //score++;
 		 lootPos();
 	 }
 	 
@@ -395,11 +395,15 @@ function lootPos(){
     maxWidth = myGameArea.canvas.width-10;
     width = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
 	loot = new component(5,5,"lime",width,height);
-	
+	var isInside = false;
 	for(i=0; i < myObstacles.length; i++){	
 	if (lootInside(loot,myObstacles[i])){
-		lootPos();
+		isInside = true;
   }
+ }
+ if (isInside){
+	 score++ ;
+	 lootPos();
  }
 }
  
