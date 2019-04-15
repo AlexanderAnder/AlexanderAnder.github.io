@@ -12,6 +12,7 @@ var left = false;
 var right = false;
 var timer;
 var lootGet = true;
+var score = 0;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
@@ -62,6 +63,10 @@ this.update = function(){
     ctx = myGameArea.context;
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
+	ctx.textAlign = "top";
+	ctx.font = "10px Arial"
+	ctx.fillStyle = "black";
+    ctx.fillText("Score: "+ score, 10, 10); 
  }
  
  //Errechnet die Position des Spielsteins
@@ -298,6 +303,7 @@ this.update = function(){
  }
  this.gotLoot = function(otherobj){
 	 if(this.crashBottom(otherobj) || this.crashLeft(otherobj) || this.crashRight(otherobj) || this.crashTop(otherobj)){
+		 score++;
 		 lootPos();
 	 }
 	 
