@@ -388,7 +388,7 @@ function lootPos(){
 	minWidth = 10;
     maxWidth = myGameArea.canvas.height/2-10;
     width = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
-	loot = new component(5,5,getRandomColor(),width,height);
+	loot = new component(5,5,"red",width,height);
  }
  
  function getRandomColor() {
