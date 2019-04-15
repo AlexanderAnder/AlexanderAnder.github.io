@@ -18,6 +18,7 @@ function startGame() {
 	myGamePiece = new component(10,10,"white", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
+	lootPos();
 	
 }
 
@@ -76,11 +77,7 @@ this.update = function(){
 	this.hitRight();
 	verticalModifier = 1;
 	horizontalModifier = 1;
-	myGamePiece.gotLoot(loot);
-	if (lootGet == true){
-		lootPos();
-		lootGet = false;
-	}
+    myGamePiece.gotLoot(loot);
 	for(i=0; i < myObstacles.length; i++){	
     if(myGamePiece.crashTop(myObstacles[i])){	  
 		this.topSide(myObstacles[i]);
@@ -300,8 +297,8 @@ this.update = function(){
 	}
  }
  this.gotLoot = function(otherobj){
-	 if(this.crashBottom || this.crashLeft || this.crashRight || this.crashTop){
-		 lootGet = true;
+	 if(this.crashBottom(otherobj) && this.crashLeft(otherobj) && this.crashRight(otherobj) && this.crashTop(otherobj)){
+		 lootPos();
 	 }
 	 
  }
