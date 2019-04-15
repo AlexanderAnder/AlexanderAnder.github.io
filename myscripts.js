@@ -303,7 +303,7 @@ this.update = function(){
  }
  this.gotLoot = function(otherobj){
 	 if(this.crashBottom(otherobj) || this.crashLeft(otherobj) || this.crashRight(otherobj) || this.crashTop(otherobj)){
-		 //score++;
+		 score++;
 		 lootPos();
 	 }
 	 
@@ -402,7 +402,6 @@ function lootPos(){
   }
  }
  if (isInside){
-	 score++ ;
 	 lootPos();
  }
 }
@@ -417,7 +416,7 @@ function lootInside(loot,obstacle){
     var otherleft = otherobj.x;
 	var otherright = otherobj.x + (otherobj.width);
 	var inside = false;
-	if(mytop < othertop && mybottom > otherbottom && myright > otherright && myleft < otherleft){
+	if(mytop < othertop + 5 && mybottom > otherbottom - 5 && myright > otherright - 5 && myleft < otherleft + 5){
 		inside = true;
 	}
 }
