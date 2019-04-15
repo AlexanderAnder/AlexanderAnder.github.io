@@ -7,8 +7,6 @@ var maxSpeedUp = -5;
 var gravityLowerBound = -5;
 var horizontalModifier = 1;
 var verticalModifier = 1;
-//var sideGravityMax = 3; 
-//var sideGravityMin = -3;
 var loot;
 var left = false;
 var right = false;
@@ -55,8 +53,6 @@ function component(width, height, color, x, y) {
     this.gravity = 0.1;
     this.gravitySpeed = 0;
 	this.bounce = 0.4;
-	//this.sideBounce = 1.5;
-	//this.sideGravity = 0;
     this.x = x;
     this.y = y;  
 	
@@ -70,11 +66,7 @@ this.update = function(){
  //Errechnet die Position des Spielsteins
     this.newPos = function() {
 	this.gravitySpeed = Math.max(this.gravitySpeed + this.gravity, gravityLowerBound);
-	//if(this.speedX >=0){
     this.x = this.x + Math.min(maxSpeed,((this.speedX)*horizontalModifier));
-	//}else{
-	// 	this.x = this.x + Math.max(minSpeed,((this.speedX+this.sideGravity)*horizontalModifier));
-	//}
 	if(this.speedY >= 0){
     this.y = this.y + ((this.speedY + this.gravitySpeed)*horizontalModifier);
 	}else{
@@ -146,7 +138,6 @@ this.update = function(){
     var rightEdge = myGameArea.canvas.width - this.width;
     if (this.x > rightEdge) {
       this.x = rightEdge;
-	 // this.sideGravity = -(this.sideGravity * this.sideBounce);
     }
   }
   
@@ -328,39 +319,18 @@ function setObstacles(){
 	myObstacles[3] = new component(40,40,"gray",(myGameArea.canvas.width)*(5/10)-20,myGameArea.canvas.height*(8/10)-20);
 	myObstacles[4] = new component(20,20,"gray",(myGameArea.canvas.width)*(2/10)-10,myGameArea.canvas.height*(9/10)-10);
 	myObstacles[5] = new component(20,20,"gray",(myGameArea.canvas.width)*(8/10)-10,myGameArea.canvas.height*(9/10)-10);
-	//myObstacles[0] = new component(50,50,"gray",(myGameArea.canvas.width)/2-100,280);
-	//myObstacles[1] = new component(50,50,"gray",(myGameArea.canvas.width)/2+100,280);
-}
+	
 
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
 	if (event.gamma > 0){
-	/* if(event.gamma > 10){
-		right = true;
-		}
-	if(left && right ){
-		left = false;
-		right = false;
-		myGamePiece.sideGravity = 0;
-	} */
+	
 	myGamePiece.speedX = Math.min(event.gamma/5,maxSpeed);
 	
-	 /*if(myGamePiece.sideGravity < sideGravityMax){
-	 myGamePiece.sideGravity += 1;
-	 }*/
 	}else{
-	  /*if(event.gamma < -5){
-		 left = true;
-		}
-	if(left && right){
-		left = false;
-		right = false;
-		sideGravity = 0;
-	}*/
+	 
      myGamePiece.speedX = Math.max(event.gamma/5,minSpeed);
-	 /*if(myGamePiece.sideGravity > sideGravityMin){
-	 myGamePiece.sideGravity -= 1;
-	 }*/
+	 
 	}
 }
 
