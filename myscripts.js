@@ -45,6 +45,13 @@ var myGameArea = {
   },
   stop : function() {
     clearInterval(this.interval);
+	this.clear();
+	ctx = this.context;
+	ctx.textAlign = "middle";
+	ctx.font = "30px Arial"
+	ctx.fillStyle = "black";
+    ctx.fillText("Game Over! Score: "+ score, 30, 30); 
+	
   },
   //Leert das gesamte Spielfeld
   clear : function() {
@@ -72,7 +79,7 @@ this.update = function(){
 	ctx.textAlign = "top";
 	ctx.font = "15px Arial"
 	ctx.fillStyle = "black";
-    ctx.fillText("Score: "+ score, 10, 10); 
+    ctx.fillText("Score: "+ score, 15, 15); 
  }
  
  //Errechnet die Position des Spielsteins
