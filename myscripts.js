@@ -17,6 +17,7 @@ var lootDelta = 5;
 var deadlyObstacles = [];
 var gameOver = false;
 var touchLock = false;
+var difficultyModifier =150;
 
 
 //Startet das Spiel mit dem Spielfeld 
@@ -77,6 +78,9 @@ function component(width, height, color, x, y) {
 	this.bounce = 0.4;
     this.x = x;
     this.y = y;  
+	randomMinSpeed = 0.5;
+    randomMaxSpeed = 2;
+    this.randomSpeed = Math.floor(Math.random()*(randomMaxSpeed-randomMinSpeed+1)+randomMinSpeed);
 	
 	//Updatefunktion fuer jeden neuen Frame
 this.update = function(){	
@@ -335,6 +339,7 @@ this.update = function(){
  this.gotLoot = function(otherobj){
 	 if(this.crashBottom(otherobj) || this.crashLeft(otherobj) || this.crashRight(otherobj) || this.crashTop(otherobj)){
 		 score++;
+		 difficultyModifier = max (50,difficultyModifier - 1);
 		 lootPos();
 	 }
 	 
@@ -352,11 +357,11 @@ function updateGameArea() {
   for(i=0; i < myObstacles.length; i++){
   myObstacles[i].update();
   }
-  if (myGameArea.frame == 1 || everyinterval(200)) {
+  if (myGameArea.frame == 1 || everyinterval(difficultyModifier)) {
 	  newDeadly();
   }
   for(m=0; m < deadlyObstacles.length; m++){
-	  deadlyObstacles[m].x += 1;
+  deadlyObstacles[m].x += deadlyObstacles[m].randomSpeed;
   deadlyObstacles[m].update();
   }
   myGamePiece.newPos();
@@ -375,7 +380,7 @@ function newDeadly(){
 	minHeight = 10;
     maxHeight = 30;
     height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
-    deadlyObstacles.push(new component(width, height, "red", 0, spawnHeight));
+    deadlyObstacles.push(new component(width, height, "red", 0 - width, spawnHeight));
 }
 
 //Stellt die Hindernisse auf dem Spielfeld auf
