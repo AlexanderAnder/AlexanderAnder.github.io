@@ -16,6 +16,7 @@ var score = 0;
 var lootDelta = 5;
 var deadlyObstacles = [];
 var gameOver = false;
+var touchLock = false;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
@@ -47,7 +48,7 @@ var myGameArea = {
     clearInterval(this.interval);
 	this.clear();
 	ctx = this.context;
-	ctx.textAlign = "middle";
+	ctx.textAlign = "center";
 	ctx.font = "30px Arial"
 	ctx.fillStyle = "black";
     ctx.fillText("Game Over! Score: "+ score, 30, 30); 
@@ -375,9 +376,12 @@ function deviceOrientationListener(event) {
 
 //Bewegt den Spielstein nach oben
 function moveUp(){
+	if(touchLock == false){
+    touchLock = true;	
 	myGamePiece.speedY = myGamePiece.speedY/10;
 	myGamePiece.gravitySpeed = -1;
-	timer = window.setInterval(moving,20); 
+	timer = window.setInterval(moving,20);
+	}
 }
 
 //Bewegt den Spielstein nach oben
@@ -389,6 +393,7 @@ function moving(){
 //Stoppt den Spielstein vom Steigen
 function stopUp(){
 	clearInterval(timer);
+	touchLock = false;
     myGamePiece.gravitySpeed = myGamePiece.gravitySpeed/3;
 	myGamePiece.gravity = 0.1;
 
