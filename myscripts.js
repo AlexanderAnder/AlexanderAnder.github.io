@@ -54,9 +54,9 @@ var myGameArea = {
 	ctx.textAlign = "center";
 	ctx.font = "30px Arial"
 	ctx.fillStyle = "black";
-    ctx.fillText("Game Over! Score: "+ score, 30, 30); 
-	
+    ctx.fillText("Game Over! Score: "+ score, myGameArea.canvas.width/2, myGameArea.canvas.height/2); 
   },
+
   //Leert das gesamte Spielfeld
   clear : function() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
