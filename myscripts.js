@@ -22,7 +22,7 @@ var difficultyModifier =150;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"cyan", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 	lootPos();
@@ -338,9 +338,10 @@ this.update = function(){
  
  this.gotLoot = function(otherobj){
 	 if(this.crashBottom(otherobj) || this.crashLeft(otherobj) || this.crashRight(otherobj) || this.crashTop(otherobj)){
+		 lootPos();
 		 score++;
 		 difficultyModifier = max (50,difficultyModifier - 1);
-		 lootPos();
+		 
 	 }
 	 
  }
