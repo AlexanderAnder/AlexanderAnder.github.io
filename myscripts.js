@@ -18,12 +18,12 @@ var deadlyObstacles = [];
 var gameOver = false;
 var touchLock = false;
 
+
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
 	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
-	deadlyObstacles[0] = new component(10,10,"red",(myGameArea.canvas.width)*(2/10)-40,myGameArea.canvas.height*(2/10)-40);
 	lootPos();
 	
 }
@@ -57,7 +57,7 @@ var myGameArea = {
 	ctx.fillStyle = "black";
     ctx.fillText("Game Over! ", myGameArea.canvas.width/2, myGameArea.canvas.height/2); 
 	ctx.fillText("Score: "+ score, myGameArea.canvas.width/2, myGameArea.canvas.height/2 + 30);
-	setTimeout(function(){window.location.reload(); }, 10000);
+	setTimeout(function(){window.location.reload(); }, 5000);
   },
 
   //Leert das gesamte Spielfeld
@@ -348,16 +348,34 @@ function updateGameArea() {
     myGameArea.stop();
   } else{
   myGameArea.clear();
+  myGameArea.frame += 1;
   for(i=0; i < myObstacles.length; i++){
   myObstacles[i].update();
   }
+  if (myGameArea.frame == 1 || everyinterval(200)) {
+	  newDeadly();
+  }
   for(m=0; m < deadlyObstacles.length; m++){
+	  deadlyObstacles[m].x += 1;
   deadlyObstacles[m].update();
   }
   myGamePiece.newPos();
   myGamePiece.update();
   loot.update();
   }
+}
+
+function newDeadly(){
+    minSpawnHeight = 10;
+    maxSpawnHeight = myGameArea.canvas.height-10;
+    spawnHeight = Math.floor(Math.random()*(maxSpawnHeight-minSpawnHeight+1)+minSpawnHeight);
+	minWidth = 10;
+    maxWidth = 30;
+    width = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
+	minHeight = 10;
+    maxHeight = 30;
+    height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
+    deadlyObstacles.push(new component(width, height, "red", 0, spawnHeight));
 }
 
 //Stellt die Hindernisse auf dem Spielfeld auf
@@ -368,7 +386,6 @@ function setObstacles(){
 	myObstacles[3] = new component(40,40,"gray",(myGameArea.canvas.width)*(5/10)-20,myGameArea.canvas.height*(8/10)-20);
 	myObstacles[4] = new component(20,20,"gray",(myGameArea.canvas.width)*(2/10)-10,myGameArea.canvas.height*(9/10)-10);
 	myObstacles[5] = new component(20,20,"gray",(myGameArea.canvas.width)*(8/10)-10,myGameArea.canvas.height*(9/10)-10);
-
 }
 
 //Bewegungssteuerung des Spielsteins
@@ -422,7 +439,7 @@ function distance(x1, y1, x2, y2) {
 	  
 	  
 function everyinterval(n) {
-  if ((myGameArea.frameNo / n) % 1 == 0) {
+  if ((myGameArea.frame / n) % 1 == 0) {
 	  return true;
 	  }
   return false;
@@ -462,15 +479,6 @@ function lootInside(loot,obstacle){
 	return inside;
 }
 	
- 
- function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
   
 	  
 //Ruft das Spielfeld im Vollbildmodus auf	  	  
