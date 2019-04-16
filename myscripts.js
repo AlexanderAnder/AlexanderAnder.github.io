@@ -17,7 +17,7 @@ var lootDelta = 5;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"orange", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 	lootPos();
@@ -65,7 +65,7 @@ this.update = function(){
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
 	ctx.textAlign = "top";
-	ctx.font = "10px Arial"
+	ctx.font = "15px Arial"
 	ctx.fillStyle = "black";
     ctx.fillText("Score: "+ score, 10, 10); 
  }
@@ -398,7 +398,8 @@ function lootPos(){
 	loot = new component(5,5,"lime",width,height);
 	var isInside = false;
 	for(i=0; i < myObstacles.length; i++){	
-	if (lootInside(loot,myObstacles[i])){
+	if (lootInside(loot,myObstacles[i])
+		|| loot.crashBottom(myObstacles[i]) || loot.crashTop(myObstacles[i]) || loot.crashRight(myObstacles[i]) || loot.crashLeft(myObstacles[i])){
 		isInside = true;
   }
  }
