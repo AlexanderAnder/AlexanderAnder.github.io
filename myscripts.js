@@ -17,7 +17,7 @@ var lootDelta = 5;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"orange", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 	lootPos();
@@ -396,15 +396,11 @@ function lootPos(){
     maxWidth = myGameArea.canvas.width-10;
     width = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
 	loot = new component(5,5,"lime",width,height);
-	var isInside = false;
 	for(i=0; i < myObstacles.length; i++){	
 	if (lootInside(loot,myObstacles[i])
 		|| loot.crashBottom(myObstacles[i]) || loot.crashTop(myObstacles[i]) || loot.crashRight(myObstacles[i]) || loot.crashLeft(myObstacles[i])){
-		isInside = true;
+		return lootPos();
   }
- }
- if (isInside){
-	 lootPos();
  }
 }
  
