@@ -56,7 +56,7 @@ var myGameArea = {
 	ctx.font = "30px Arial"
 	ctx.fillStyle = "black";
     ctx.fillText("Game Over! ", myGameArea.canvas.width/2, myGameArea.canvas.height/2); 
-	ctx.fillText("Score: "+ score, myGameArea.canvas.width/2, myGameArea.canvas.height/2+30);
+	ctx.fillText("Score: "+ score, myGameArea.canvas.width/2, myGameArea.canvas.height/2 + 30);
 	setTimeout(startGame(), 10000);
   },
 
@@ -477,8 +477,8 @@ function lootInside(loot,obstacle){
 function fullscreen(){
         var el = document.documentElement;
 
-           if(el.requestFullScreen) {
-               el.requestFullScreen();
+           if(el.webkitRequestFullScreen) {
+               el.webkitRequestFullScreen();
            }
           else {
              el.mozRequestFullScreen();
