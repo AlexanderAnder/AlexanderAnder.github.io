@@ -48,6 +48,9 @@ var myGameArea = {
     clearInterval(this.interval);
 	this.clear();
 	ctx = this.context;
+	ctx.moveTo(myGameArea.canvas.width/2, 0);
+    ctx.lineTo(myGameArea.canvas.width/2, myGameArea.canvas.height);
+    ctx.stroke();
 	ctx.textAlign = "center";
 	ctx.font = "30px Arial"
 	ctx.fillStyle = "black";
@@ -442,12 +445,12 @@ function lootPos(){
 function lootInside(loot,obstacle){
 	var mytop = loot.y;
     var mybottom = loot.y + (loot.height);
-    var othertop = otherobj.y;
-    var otherbottom = otherobj.y + (otherobj.height);
+    var othertop = obstacle.y;
+    var otherbottom = obstacle.y + (obstacle.height);
 	var myright = loot.x + (loot.width);
 	var myleft = loot.x
-    var otherleft = otherobj.x;
-	var otherright = otherobj.x + (otherobj.width);
+    var otherleft = obstacle.x;
+	var otherright = obstacle.x + (obstacle.width);
 	var inside = false;
 	if(mytop > othertop - lootDelta && mybottom < otherbottom + lootDelta &&
 	myright < otherright + lootDelta && myleft > otherleft - lootDelta){
