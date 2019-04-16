@@ -57,7 +57,7 @@ var myGameArea = {
 	ctx.fillStyle = "black";
     ctx.fillText("Game Over! ", myGameArea.canvas.width/2, myGameArea.canvas.height/2); 
 	ctx.fillText("Score: "+ score, myGameArea.canvas.width/2, myGameArea.canvas.height/2 + 30);
-	setTimeout(startGame(), 10000);
+	setTimeout(function(){window.location.reload(); }, 10000);
   },
 
   //Leert das gesamte Spielfeld
@@ -480,9 +480,12 @@ function fullscreen(){
            if(el.webkitRequestFullScreen) {
                el.webkitRequestFullScreen();
            }
-          else {
+          else if(el.mozRequestFullScreen) {
              el.mozRequestFullScreen();
           }
+		  else{
+			  el.requestFullScreen();
+		  }
 		  element = document.getElementById("start")
 		  element.parentNode.removeChild(element);
 		  startGame();
