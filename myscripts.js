@@ -47,6 +47,7 @@ var myGameArea = {
   stop : function() {
     clearInterval(this.interval);
 	this.clear();
+	ctx.strokeStyle = "silver";
 	ctx = this.context;
 	ctx.moveTo(myGameArea.canvas.width/2, 0);
     ctx.lineTo(myGameArea.canvas.width/2, myGameArea.canvas.height);
@@ -54,7 +55,9 @@ var myGameArea = {
 	ctx.textAlign = "center";
 	ctx.font = "30px Arial"
 	ctx.fillStyle = "black";
-    ctx.fillText("Game Over! Score: "+ score, myGameArea.canvas.width/2, myGameArea.canvas.height/2); 
+    ctx.fillText("Game Over! ", myGameArea.canvas.width/2, myGameArea.canvas.height/2); 
+	ctx.fillText("Score: "+ score, myGameArea.canvas.width/2, myGameArea.canvas.height/2+30);
+	setTimeout(startGame(), 10000);
   },
 
   //Leert das gesamte Spielfeld
@@ -474,8 +477,8 @@ function lootInside(loot,obstacle){
 function fullscreen(){
         var el = document.documentElement;
 
-           if(el.webkitRequestFullScreen) {
-               el.webkitRequestFullScreen();
+           if(el.requestFullScreen) {
+               el.requestFullScreen();
            }
           else {
              el.mozRequestFullScreen();
