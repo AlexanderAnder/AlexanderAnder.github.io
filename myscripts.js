@@ -13,10 +13,11 @@ var right = false;
 var timer;
 var lootGet = true;
 var score = 0;
+var lootDelta = 5;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 	lootPos();
@@ -406,6 +407,7 @@ function lootPos(){
  }
 }
  
+ //Schaut ob das Einsammelobjekt in einem Hinderniss drinnen ist
 function lootInside(loot,obstacle){
 	var mytop = loot.y;
     var mybottom = loot.y + (loot.height);
@@ -416,7 +418,8 @@ function lootInside(loot,obstacle){
     var otherleft = otherobj.x;
 	var otherright = otherobj.x + (otherobj.width);
 	var inside = false;
-	if(mytop < othertop + 5 && mybottom > otherbottom - 5 && myright > otherright - 5 && myleft < otherleft + 5){
+	if(mytop > othertop - lootDelta && mybottom < otherbottom + lootDelta &&
+	myright < otherright + lootDelta && myleft > otherleft - lootDelta){
 		inside = true;
 	}
 }
