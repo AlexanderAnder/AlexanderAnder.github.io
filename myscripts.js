@@ -14,12 +14,15 @@ var timer;
 var lootGet = true;
 var score = 0;
 var lootDelta = 5;
+var deadlyObstacles = [];
+var gameOver = false;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
 	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
+	deadlyObstacles[0] = new component(10,10,"red",(myGameArea.canvas.width)*(2/10)-40,myGameArea.canvas.height*(2/10)-40);
 	lootPos();
 	
 }
@@ -40,7 +43,9 @@ var myGameArea = {
 	this.canvas.addEventListener("mousedown", moveUp);
 	this.canvas.addEventListener("mouseup", stopUp);
   },
-  
+  stop : function() {
+    clearInterval(this.interval);
+  },
   //Leert das gesamte Spielfeld
   clear : function() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -302,6 +307,17 @@ this.update = function(){
 		}
 	}
  }
+ 
+ this.deadlyCrash = function (){
+	 for(i= 0; i < deadlyObstacles.length ; i++){
+	 if(this.crashBottom(deadlyObstacles[i]) || this.crashLeft(deadlyObstacles[i]) || 
+	 this.crashRight(deadlyObstacles[i]) || this.crashTop(deadlyObstacles[i])){
+		 gameOver = true;
+	 }
+   }
+   return gameOver;
+ }
+ 
  this.gotLoot = function(otherobj){
 	 if(this.crashBottom(otherobj) || this.crashLeft(otherobj) || this.crashRight(otherobj) || this.crashTop(otherobj)){
 		 score++;
@@ -314,14 +330,20 @@ this.update = function(){
 
 //Aktualisiert das gesamte Spielfeld
 function updateGameArea() {
+  if (myGamePiece.deadlyCrash()) {
+    myGameArea.stop();
+  } else{
   myGameArea.clear();
   for(i=0; i < myObstacles.length; i++){
   myObstacles[i].update();
   }
+  for(m=0; m < deadlyObstacles.length; m++){
+  deadlyObstacles[m].update();
+  }
   myGamePiece.newPos();
   myGamePiece.update();
   loot.update();
- 
+  }
 }
 
 //Stellt die Hindernisse auf dem Spielfeld auf
@@ -399,7 +421,7 @@ function lootPos(){
 	for(i=0; i < myObstacles.length; i++){	
 	if (lootInside(loot,myObstacles[i])
 		|| loot.crashBottom(myObstacles[i]) || loot.crashTop(myObstacles[i]) || loot.crashRight(myObstacles[i]) || loot.crashLeft(myObstacles[i])){
-		return lootPos();
+		 lootPos();
   }
  }
 }
@@ -419,6 +441,7 @@ function lootInside(loot,obstacle){
 	myright < otherright + lootDelta && myleft > otherleft - lootDelta){
 		inside = true;
 	}
+	return inside;
 }
 	
  
