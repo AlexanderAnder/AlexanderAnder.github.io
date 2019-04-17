@@ -17,7 +17,7 @@ var lootDelta = 5;
 var deadlyObstacles = [];
 var gameOver = false;
 var touchLock = false;
-var difficultyModifier = 150;
+var difficultyModifier = 100;
 var gamePieceHeight;
 var gamePieceWidth;
 
@@ -25,7 +25,7 @@ var gamePieceWidth;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"yellow", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
 	gamePieceHeight = myGamePiece.height;
 	gamePieceWidth = myGamePiece.width;
 	myGameArea.start();
@@ -333,7 +333,7 @@ this.update = function(){
  
  this.deadlyCrash = function (){
 	 for(i= 0; i < deadlyObstacles.length ; i++){
-      if(deadlyObstacles[i] < myGameArea.canvas.width +100){
+      if(deadlyObstacles[i].x < myGameArea.canvas.width +100){
 	   if(this.crashBottom(deadlyObstacles[i]) || this.crashLeft(deadlyObstacles[i]) || 
 	   this.crashRight(deadlyObstacles[i]) || this.crashTop(deadlyObstacles[i])){
 		 gameOver = true;
@@ -347,7 +347,7 @@ this.update = function(){
 	 if(this.crashBottom(otherobj) || this.crashLeft(otherobj) || this.crashRight(otherobj) || this.crashTop(otherobj)){
 		 lootPos();
 		 score++;
-		 difficultyModifier = max (50,difficultyModifier - 1);
+		 difficultyModifier = max (20,difficultyModifier - 1);
 		 
 	 }
 	 
@@ -403,11 +403,15 @@ function setObstacles(){
 
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
+	if (window.matchMedia("(orientation: landscape)").matches) {
+   
+   }else{
 	if (event.gamma > 0){
 	myGamePiece.speedX = Math.min(event.gamma/5,maxSpeed);
 	}else{
      myGamePiece.speedX = Math.max(event.gamma/5,minSpeed);
 	}
+  }
 }
 
 //Bewegt den Spielstein nach oben
