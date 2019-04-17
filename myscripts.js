@@ -1,4 +1,6 @@
 var myGamePiece;
+var gameHeight;
+var gameWidth;
 var myObstacles = [];
 var delta = 0.001;
 var maxSpeed = 5;
@@ -26,7 +28,7 @@ var deadlyRight = false;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"black", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
 	gamePieceHeight = myGamePiece.height;
 	gamePieceWidth = myGamePiece.width;
 	myGameArea.start();
@@ -41,7 +43,9 @@ var myGameArea = {
   start : function() {
 
     this.canvas.width = window.innerWidth; 
+	gameWidth = this.canvas.width;
     this.canvas.height = window.screen.availHeight;
+	gameHeight = this.canvas.height;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
@@ -404,12 +408,14 @@ function newDeadly(){
 
 //Stellt die Hindernisse auf dem Spielfeld auf
 function setObstacles(){
-	myObstacles[0] = new component(40,40,"gray",(myGameArea.canvas.width)*(2/10)-20,myGameArea.canvas.height*(2/10)-20);
-	myObstacles[1] = new component(120,20,"gray",(myGameArea.canvas.width)*(5/10)-60,myGameArea.canvas.height*(5/10)-100);
-	myObstacles[2] = new component(40,40,"gray",(myGameArea.canvas.width)*(8/10)-20,myGameArea.canvas.height*(2/10)-20);
-	myObstacles[3] = new component(40,40,"gray",(myGameArea.canvas.width)*(5/10)-20,myGameArea.canvas.height*(8/10)-20);
-	myObstacles[4] = new component(20,20,"gray",(myGameArea.canvas.width)*(2/10)-10,myGameArea.canvas.height*(9/10)-10);
-	myObstacles[5] = new component(20,20,"gray",(myGameArea.canvas.width)*(8/10)-10,myGameArea.canvas.height*(9/10)-10);
+	myObstacles[0] = new component(40,40,"gray",gameWidth*(2/10)-20,gameHeight*(2/10)-20);
+	myObstacles[1] = new component(120,20,"gray",gameWidth*(5/10)-60,gameHeight*(5/10)-100);
+	myObstacles[2] = new component(40,40,"gray",gameWidth*(8/10)-20,gameHeight*(2/10)-20);
+	myObstacles[3] = new component(40,40,"gray",gameWidth*(5/10)-20,gameHeight*(8/10)-20);
+	myObstacles[4] = new component(20,20,"gray",gameWidth*(2/10)-10,gameHeight*(9/10)-10);
+	myObstacles[5] = new component(20,20,"gray",gameWidth*(8/10)-10,gameHeight*(9/10)-10);
+	myObstacles[6] = new component(30,100,"gray",gameWidth*(3/10),gameHeight*(5/10));
+	myObstacles[7] = new component(30,100,"gray",gameWidth*(7/10),gameHeight*(5/10));
 }
 
 //Bewegungssteuerung des Spielsteins
@@ -482,8 +488,8 @@ function lootPos(){
 	minHeight = 10;
     maxHeight = myGameArea.canvas.height-10;
     height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
-	minWidth = 10;
-    maxWidth = myGameArea.canvas.width-10;
+	minWidth = 20;
+    maxWidth = myGameArea.canvas.width-20;
     width = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
 	loot = new component(5,5,"lime",width,height);
 	for(i=0; i < myObstacles.length; i++){	
@@ -534,11 +540,8 @@ function fullscreen(){
 		  element = document.getElementById("start")
 		  element.parentNode.removeChild(element);
 		  startGame();
-		  lock(window.screen.orientation);
+		  var orient = window.screen.orientation;
+		  orient.lock(orient.type);
+		  //screen.orientation.lock(orient.type);
         }
-}
-
-function lock(orientation) {
-  fullScreen();
-  screen.orientation.lock(orientation);
 }
