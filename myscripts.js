@@ -28,7 +28,7 @@ var deadlyRight = false;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"navy", (window.innerWidth)/2,0);
 	gamePieceHeight = myGamePiece.height;
 	gamePieceWidth = myGamePiece.width;
 	myGameArea.start();
@@ -414,7 +414,7 @@ function setObstacles(){
 	myObstacles[3] = new component(40,40,"gray",gameWidth*(5/10)-20,gameHeight*(8/10)-20);
 	myObstacles[4] = new component(20,20,"gray",gameWidth*(2/10)-10,gameHeight*(9/10)-10);
 	myObstacles[5] = new component(20,20,"gray",gameWidth*(8/10)-10,gameHeight*(9/10)-10);
-	myObstacles[6] = new component(30,100,"gray",gameWidth*(3/10),gameHeight*(5/10));
+	myObstacles[6] = new component(30,100,"gray",gameWidth*(2.5/10),gameHeight*(5/10));
 	myObstacles[7] = new component(30,100,"gray",gameWidth*(7/10),gameHeight*(5/10));
 }
 
