@@ -19,13 +19,14 @@ var gameOver = false;
 var touchLock = false;
 var difficultyModifier = 100;
 var gamePieceHeight;
-var gamePieceWidth;
+var gamePieceWidth
+var deadlyRight = false;
 
 
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"black", (window.innerWidth)/2,0);
 	gamePieceHeight = myGamePiece.height;
 	gamePieceWidth = myGamePiece.width;
 	myGameArea.start();
@@ -82,10 +83,14 @@ function component(width, height, color, x, y) {
     this.gravitySpeed = 0;
 	this.bounce = 0.4;
     this.x = x;
-    this.y = y;  
-	randomMinSpeed = 0.5;
-    randomMaxSpeed = 2;
+    this.y = y;
+	randomMinSpeed = 1;
+    randomMaxSpeed = 3;
+	if(deadlyRight==false){
     this.randomSpeed = Math.floor(Math.random()*(randomMaxSpeed-randomMinSpeed+1)+randomMinSpeed);
+	}else {
+	this.randomSpeed = (-1)*(Math.floor(Math.random()*(randomMaxSpeed-randomMinSpeed+1)+randomMinSpeed));
+	}
 	
 	//Updatefunktion fuer jeden neuen Frame
 this.update = function(){	
@@ -383,12 +388,18 @@ function newDeadly(){
     maxSpawnHeight = myGameArea.canvas.height-10;
     spawnHeight = Math.floor(Math.random()*(maxSpawnHeight-minSpawnHeight+1)+minSpawnHeight);
 	minWidth = 10;
-    maxWidth = 30;
+    maxWidth = 50;
     width = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
 	minHeight = 10;
-    maxHeight = 30;
+    maxHeight = 50;
     height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
+	if(deadlyRight== false){
     deadlyObstacles.push(new component(width, height, "red", 0 - width, spawnHeight));
+	deadlyRight= true;
+	}else{
+		deadlyObstacles.push(new component(width, height, "red", myGameArea.canvas.width, spawnHeight));
+		deadlyRight = false;
+	}
 }
 
 //Stellt die Hindernisse auf dem Spielfeld auf
@@ -405,9 +416,9 @@ function setObstacles(){
 function deviceOrientationListener(event) {
 	if (window.matchMedia("(orientation: landscape)").matches) {
        if(event.beta > 0){
-		   myGamePiece.speedX = Math.min(event.beta/10,maxSpeed);
+		   myGamePiece.speedX = Math.min(event.beta/5,maxSpeed);
 	}else{
-     myGamePiece.speedX = Math.max(event.beta/10,minSpeed);
+     myGamePiece.speedX = Math.max(event.beta/5,minSpeed);
 	}
    }else{
 	if (event.gamma > 0){
