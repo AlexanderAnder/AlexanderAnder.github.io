@@ -17,7 +17,7 @@ var lootDelta = 5;
 var deadlyObstacles = [];
 var gameOver = false;
 var touchLock = false;
-var difficultyModifier = 100;
+var difficultyModifier = 150;
 var gamePieceHeight;
 var gamePieceWidth
 var deadlyRight = false;
@@ -352,7 +352,7 @@ this.update = function(){
 	 if(this.crashBottom(otherobj) || this.crashLeft(otherobj) || this.crashRight(otherobj) || this.crashTop(otherobj)){
 		 lootPos();
 		 score++;
-		 difficultyModifier = max (20,difficultyModifier - 1);
+		 difficultyModifier = max (10,difficultyModifier - 2);
 		 
 	 }
 	 
@@ -534,5 +534,11 @@ function fullscreen(){
 		  element = document.getElementById("start")
 		  element.parentNode.removeChild(element);
 		  startGame();
+		  lock(window.screen.orientation);
         }
+}
+
+function lock(orientation) {
+  fullScreen();
+  screen.orientation.lock(orientation);
 }
