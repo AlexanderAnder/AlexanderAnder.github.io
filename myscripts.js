@@ -404,7 +404,11 @@ function setObstacles(){
 //Bewegungssteuerung des Spielsteins
 function deviceOrientationListener(event) {
 	if (window.matchMedia("(orientation: landscape)").matches) {
-   
+       if(event.beta > 0){
+		   myGamePiece.speedX = Math.min(event.beta/10,maxSpeed);
+	}else{
+     myGamePiece.speedX = Math.max(event.beta/10,minSpeed);
+	}
    }else{
 	if (event.gamma > 0){
 	myGamePiece.speedX = Math.min(event.gamma/5,maxSpeed);
