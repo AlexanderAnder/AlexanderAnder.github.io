@@ -18,12 +18,16 @@ var deadlyObstacles = [];
 var gameOver = false;
 var touchLock = false;
 var difficultyModifier = 150;
-var delay = false;
+var gamePieceHeight;
+var gamePieceWidth;
+
 
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"black", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"yellow", (window.innerWidth)/2,0);
+	gamePieceHeight = myGamePiece.height;
+	gamePieceWidth = myGamePiece.width;
 	myGameArea.start();
 	setObstacles();
 	lootPos();
@@ -145,7 +149,7 @@ this.update = function(){
   
   //Prueft ob der Spielstein den Boden des Spielfeldes trifft
   this.hitBottom = function() {
-    var rockbottom = myGameArea.canvas.height - this.height;
+    var rockbottom = myGameArea.canvas.height - gamePieceHeight;
     if (this.y > rockbottom) {
       this.y = rockbottom;
 	  this.gravitySpeed = -(this.gravitySpeed * this.bounce);
@@ -163,7 +167,7 @@ this.update = function(){
   
   //Prueft ob der Spielstein den rechten Rand trifft
   this.hitRight = function() {
-    var rightEdge = myGameArea.canvas.width - this.width;
+    var rightEdge = myGameArea.canvas.width - gamePieceWidth;
     if (this.x > rightEdge) {
       this.x = rightEdge;
 	 // this.sideGravity = -(this.sideGravity * this.sideBounce);
@@ -173,9 +177,9 @@ this.update = function(){
   //Prueft ob der Spielstein ein Hinderniss von unten trifft
     this.crashBottom = function(otherobj) {
 	var mytop = this.y;
-    var mybottom = this.y + (this.height);
+    var mybottom = this.y + (gamePieceHeight);
     var otherbottom = otherobj.y + (otherobj.height);
-	var myright = this.x + (this.width);
+	var myright = this.x + (gamePieceWidth);
     var otherleft = otherobj.x;
 	var myleft = this.x;
     var otherright = otherobj.x + (otherobj.width);
@@ -193,9 +197,9 @@ this.update = function(){
   //Prueft ob der Spielstein ein Hinderniss von oben trifft
    this.crashTop = function(otherobj) {
 	var mytop = this.y;
-    var mybottom = this.y + (this.height);
+    var mybottom = this.y + (gamePieceHeight);
     var othertop = otherobj.y;
-	var myright = this.x + (this.width);
+	var myright = this.x + (gamePieceWidth);
     var otherleft = otherobj.x;
 	var myleft = this.x;
     var otherright = otherobj.x + (otherobj.width);
@@ -213,10 +217,10 @@ this.update = function(){
   //Prueft ob der Spielstein ein Hinderniss von links trifft
   this.crashLeft = function(otherobj) {
 	var mytop = this.y;
-    var mybottom = this.y + (this.height);
+    var mybottom = this.y + (gamePieceHeight);
     var othertop = otherobj.y;
     var otherbottom = otherobj.y + (otherobj.height);
-	var myright = this.x + (this.width);
+	var myright = this.x + (gamePieceWidth);
 	var myleft = this.x
 	var otherright = otherobj.x + (otherobj.width);
     var crash = false;
@@ -234,10 +238,10 @@ this.update = function(){
   //Prueft ob der Spielstein ein Hinderniss von rechts trifft
    this.crashRight = function(otherobj) {
 	var mytop = this.y;
-    var mybottom = this.y + (this.height);
+    var mybottom = this.y + (gamePieceHeight);
     var othertop = otherobj.y;
     var otherbottom = otherobj.y + (otherobj.height);
-	var myright = this.x + (this.width);
+	var myright = this.x + (gamePieceWidth);
 	var myleft = this.x
     var otherleft = otherobj.x;
     var crash = false;
@@ -254,14 +258,14 @@ this.update = function(){
   
   // Prueft ob der Spielstein nach links,rechts oder oben kommt
     this.topSide = function(otherobj){
-    var mybottom = this.y + (this.height);
+    var mybottom = this.y + (gamePieceHeight);
     var othertop = otherobj.y;
-	var myright = this.x + (this.width);
+	var myright = this.x + (gamePieceWidth);
 	var myleft = this.x
     var otherleft = otherobj.x;
 	var otherright = otherobj.x + (otherobj.width);
-	var left = distance(myleft + this.width/2, mybottom,otherleft,othertop) <
-	distance(myright + this.width/2, mybottom,otherright,othertop);
+	var left = distance(myleft + gamePieceWidth/2, mybottom,otherleft,othertop) <
+	distance(myright + gamePieceWidth/2, mybottom,otherright,othertop);
 	if (left){
 		var point = myright; 
 		if(point < otherleft){
@@ -269,10 +273,10 @@ this.update = function(){
 		}
 		if(distance(myright, mybottom,point,othertop) <
 		distance(myright, mybottom,otherleft,mybottom)){
-			this.y = othertop - this.height;
+			this.y = othertop - gamePieceHeight;
 			this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 		}else{
-			this.x = otherleft - this.width -delta;
+			this.x = otherleft - gamePieceWidth -delta;
 		}
 	}else{
 		var point = myleft; 
@@ -281,7 +285,7 @@ this.update = function(){
 		}
 		if(distance(myleft, mybottom ,point,othertop) <
 		distance(myleft ,mybottom,otherright,mybottom)){
-			this.y = othertop - this.height;
+			this.y = othertop - gamePieceHeight;
 			this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 		}else{
 			this.x = otherright + delta;
@@ -291,15 +295,15 @@ this.update = function(){
 // Prueft ob der Spielstein nach links,rechts oder unten kommt
   this.bottomSide = function(otherobj){
     var mytop = this.y;
-    var mybottom = this.y + (this.height);
+    var mybottom = this.y + (gamePieceHeight);
     var othertop = otherobj.y;
     var otherbottom = otherobj.y + (otherobj.height);
-	var myright = this.x + (this.width);
+	var myright = this.x + (gamePieceWidth);
 	var myleft = this.x
     var otherleft = otherobj.x;
 	var otherright = otherobj.x + (otherobj.width);
-	var left = distance(myleft + this.width/2, mytop,otherleft,otherbottom) <
-	distance(myright + this.width/2, mytop,otherright,otherbottom);
+	var left = distance(myleft + gamePieceWidth/2, mytop,otherleft,otherbottom) <
+	distance(myright + gamePieceWidth/2, mytop,otherright,otherbottom);
 	if (left){
 		var point = myright; 
 		if(point < otherleft){
@@ -310,7 +314,7 @@ this.update = function(){
 			this.y = otherbottom;
 			this.gravitySpeed = -(this.gravitySpeed * this.bounce);
 		}else{
-			this.x = otherleft - this.width -delta;
+			this.x = otherleft - gamePieceWidth -delta;
 		}
 	}else{
 		var point = myleft; 
@@ -329,11 +333,13 @@ this.update = function(){
  
  this.deadlyCrash = function (){
 	 for(i= 0; i < deadlyObstacles.length ; i++){
-	 if(this.crashBottom(deadlyObstacles[i]) || this.crashLeft(deadlyObstacles[i]) || 
-	 this.crashRight(deadlyObstacles[i]) || this.crashTop(deadlyObstacles[i])){
+      if(deadlyObstacles[i] < myGameArea.canvas.width +100){
+	   if(this.crashBottom(deadlyObstacles[i]) || this.crashLeft(deadlyObstacles[i]) || 
+	   this.crashRight(deadlyObstacles[i]) || this.crashTop(deadlyObstacles[i])){
 		 gameOver = true;
-	 }
-   }
+	   }
+	  }
+	}
    return gameOver;
  }
  
@@ -406,16 +412,13 @@ function deviceOrientationListener(event) {
 
 //Bewegt den Spielstein nach oben
 function moveUp(){
-	if(delay == false){
 	if(touchLock == false){
     touchLock = true;	
-	delay = true;
 	myGamePiece.speedY = myGamePiece.speedY/10;
 	myGamePiece.gravitySpeed = -1;
 	timer = window.setInterval(moving,20);
-	setTimeout(function(){delay = false;},100);
 	 }
-	}
+	
 }
 
 //Bewegt den Spielstein nach oben
@@ -465,8 +468,7 @@ function lootPos(){
     width = Math.floor(Math.random()*(maxWidth-minWidth+1)+minWidth);
 	loot = new component(5,5,"lime",width,height);
 	for(i=0; i < myObstacles.length; i++){	
-	if (lootInside(loot,myObstacles[i])
-		|| loot.crashBottom(myObstacles[i]) || loot.crashTop(myObstacles[i]) || loot.crashRight(myObstacles[i]) || loot.crashLeft(myObstacles[i])){
+	if (lootInside(loot,myObstacles[i])){
 		 lootPos();
   }
  }
