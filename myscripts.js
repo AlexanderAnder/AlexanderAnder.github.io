@@ -18,12 +18,12 @@ var deadlyObstacles = [];
 var gameOver = false;
 var touchLock = false;
 var difficultyModifier = 150;
-var timer = false;
+var delay = false;
 
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"black", (window.innerWidth)/2,0);
 	myGameArea.start();
 	setObstacles();
 	lootPos();
@@ -406,14 +406,14 @@ function deviceOrientationListener(event) {
 
 //Bewegt den Spielstein nach oben
 function moveUp(){
-	if(timer == false){
+	if(delay == false){
 	if(touchLock == false){
     touchLock = true;	
-	timer = true;
+	delay = true;
 	myGamePiece.speedY = myGamePiece.speedY/10;
 	myGamePiece.gravitySpeed = -1;
 	timer = window.setInterval(moving,20);
-	setTimeout(function(){timer = false;},1000);
+	setTimeout(function(){delay = false;},100);
 	 }
 	}
 }
@@ -494,6 +494,11 @@ function lootInside(loot,obstacle){
 	  
 //Ruft das Spielfeld im Vollbildmodus auf	  	  
 function fullscreen(){
+	if(navigator.userAgent.match(/iPad/i) ||navigator.userAgent.match(/iPhone/i)){
+          element = document.getElementById("start")
+		  element.parentNode.removeChild(element);
+		  startGame();
+    } else{
         var el = document.documentElement;
 
            if(el.webkitRequestFullScreen) {
@@ -509,3 +514,4 @@ function fullscreen(){
 		  element.parentNode.removeChild(element);
 		  startGame();
         }
+}
