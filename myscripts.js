@@ -28,7 +28,7 @@ var deadlyRight = false;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"pink", (window.innerWidth)/2,0);
 	gamePieceHeight = myGamePiece.height;
 	gamePieceWidth = myGamePiece.width;
 	checkAcc();
@@ -420,18 +420,18 @@ function setObstacles(){
 }
 
 //Bewegungssteuerung des Spielsteins
-function deviceOrientationListener(event) {
+function deviceMotionListener(event) {
 	if (window.matchMedia("(orientation: landscape)").matches) {
-       if(event.beta > 0){
-		   myGamePiece.speedX = Math.min(event.beta/5,maxSpeed);
+       if(event.acceleration.y > 0){
+		   myGamePiece.speedX = Math.min(event.acceleration.y/5,maxSpeed);
 	}else{
-     myGamePiece.speedX = Math.max(event.beta/5,minSpeed);
+     myGamePiece.speedX = Math.max(event.acceleration.y/5,minSpeed);
 	}
    }else{
-	if (event.gamma > 0){
-	myGamePiece.speedX = Math.min(event.gamma/5,maxSpeed);
+	if (event.acceleration.x > 0){
+	myGamePiece.speedX = Math.min(event.acceleration.x/5,maxSpeed);
 	}else{
-     myGamePiece.speedX = Math.max(event.gamma/5,minSpeed);
+     myGamePiece.speedX = Math.max(event.acceleration.x/5,minSpeed);
 	}
   }
 }
@@ -472,8 +472,8 @@ function distance(x1, y1, x2, y2) {
 
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
 function checkAcc() {
- if (window.DeviceOrientationEvent) {
-        window.addEventListener("deviceorientation", deviceOrientationListener,true);
+ if (window.DeviceMotionEvent) {
+        window.addEventListener("devicemotion", deviceMotionListener,true);
       } else {
         alert("Sorry, your browser doesn't support Device Orientation");
       }
