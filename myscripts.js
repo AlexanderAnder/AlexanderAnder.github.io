@@ -28,9 +28,10 @@ var deadlyRight = false;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"navy", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
 	gamePieceHeight = myGamePiece.height;
 	gamePieceWidth = myGamePiece.width;
+	checkAcc();
 	myGameArea.start();
 	setObstacles();
 	lootPos();
@@ -470,12 +471,13 @@ function distance(x1, y1, x2, y2) {
 		
 
 //Prueft ob das Geraet Bewegungssteuerung unterstuetzt
+function checkAcc() {
  if (window.DeviceOrientationEvent) {
-        window.addEventListener("deviceorientation", deviceOrientationListener);
+        window.addEventListener("deviceorientation", deviceOrientationListener,true);
       } else {
         alert("Sorry, your browser doesn't support Device Orientation");
       }
-	  
+}
 	  
 function everyinterval(n) {
   if ((myGameArea.frame / n) % 1 == 0) {
