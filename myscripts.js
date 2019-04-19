@@ -28,7 +28,7 @@ var deadlyRight = false;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"navy", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"lime", (window.innerWidth)/2,0);
 	gamePieceHeight = myGamePiece.height;
 	gamePieceWidth = myGamePiece.width;
 	checkAcc();
@@ -422,16 +422,16 @@ function setObstacles(){
 //Bewegungssteuerung des Spielsteins
 function deviceMotionListener(event) {
 	if (window.matchMedia("(orientation: landscape)").matches) {
-       if(event.accelerationIncludingGravity.x > 0){
-		   myGamePiece.speedX = Math.min(event.accelerationIncludingGravity.x/5,maxSpeed);
-	}else{
-     myGamePiece.speedX = Math.max(event.accelerationIncludingGravity.x/5,minSpeed);
-	}
-   }else{
-	if (event.accelerationIncludingGravity.y > 0){
-	myGamePiece.speedX = Math.min(event.accelerationIncludingGravity.y/5,maxSpeed);
+       if(event.accelerationIncludingGravity.y > 0){
+		   myGamePiece.speedX = Math.min(event.accelerationIncludingGravity.y/5,maxSpeed);
 	}else{
      myGamePiece.speedX = Math.max(event.accelerationIncludingGravity.y/5,minSpeed);
+	}
+   }else{
+	if (event.accelerationIncludingGravity.x > 0){
+	myGamePiece.speedX = Math.min(event.accelerationIncludingGravity.x/5,maxSpeed);
+	}else{
+     myGamePiece.speedX = Math.max(event.accelerationIncludingGravity.x/5,minSpeed);
 	}
   }
 }
