@@ -28,7 +28,7 @@ var deadlyRight = false;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"navy", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
 	gamePieceHeight = myGamePiece.height;
 	gamePieceWidth = myGamePiece.width;
 	checkAcc();
@@ -421,6 +421,9 @@ function setObstacles(){
 
 //Bewegungssteuerung des Spielsteins
 function deviceMotionListener(event) {
+	if(navigator.userAgent.match(/iPad/i) ||navigator.userAgent.match(/iPhone/i)){
+		motionIos(event);
+	}else{
 	if (window.matchMedia("(orientation: landscape)").matches) {
        if(event.accelerationIncludingGravity.y > 0){
 		   myGamePiece.speedX =(-1)* (Math.min(event.accelerationIncludingGravity.y,maxSpeed));
@@ -433,7 +436,21 @@ function deviceMotionListener(event) {
 	}else{
      myGamePiece.speedX =(-1)* (Math.max(event.accelerationIncludingGravity.x,minSpeed));
 	}
-  }
+	}}
+}
+function motionIos(event){
+	if (window.matchMedia("(orientation: landscape)").matches) {
+       if(event.accelerationIncludingGravity.y > 0){
+		   myGamePiece.speedX = (Math.min(event.accelerationIncludingGravity.y/2,maxSpeed));
+	}else{
+     myGamePiece.speedX = (Math.max(event.accelerationIncludingGravity.y/2,minSpeed));
+	}
+   }else{
+	if (event.accelerationIncludingGravity.x > 0){
+	myGamePiece.speedX = (Math.min(event.accelerationIncludingGravity.x/2,maxSpeed));
+	}else{
+     myGamePiece.speedX = (Math.max(event.accelerationIncludingGravity.x/2,minSpeed));
+   }}
 }
 
 //Bewegt den Spielstein nach oben
