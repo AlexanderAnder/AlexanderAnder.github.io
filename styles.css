@@ -1,5 +1,5 @@
 html, body {
-  background-color: gray;
+  background-color: silver;
   margin: 0;
 }
 
@@ -13,6 +13,13 @@ canvas {
 #start {
   position: fixed;
   top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#pressText {
+  position: fixed;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 }

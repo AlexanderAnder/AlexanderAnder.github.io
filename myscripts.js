@@ -28,7 +28,7 @@ var deadlyRight = false;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"navy", (window.innerWidth)/2,0);
 	gamePieceHeight = myGamePiece.height;
 	gamePieceWidth = myGamePiece.width;
 	checkAcc();
@@ -45,7 +45,11 @@ var myGameArea = {
 
     this.canvas.width = window.innerWidth; 
 	gameWidth = this.canvas.width;
+	if(navigator.userAgent.match(/iPad/i) ||navigator.userAgent.match(/iPhone/i)){
+		this.canvas.height = window.screen.availHeight;
+	}else{
     this.canvas.height = window.screen.availHeight;
+	}
 	gameHeight = this.canvas.height;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
@@ -441,15 +445,15 @@ function deviceMotionListener(event) {
 function motionIos(event){
 	if (window.matchMedia("(orientation: landscape)").matches) {
        if(event.accelerationIncludingGravity.y > 0){
-		   myGamePiece.speedX = (Math.min(event.accelerationIncludingGravity.y/2,maxSpeed));
+		   myGamePiece.speedX = (Math.min(event.accelerationIncludingGravity.y,maxSpeed));
 	}else{
-     myGamePiece.speedX = (Math.max(event.accelerationIncludingGravity.y/2,minSpeed));
+     myGamePiece.speedX = (Math.max(event.accelerationIncludingGravity.y,minSpeed));
 	}
    }else{
 	if (event.accelerationIncludingGravity.x > 0){
-	myGamePiece.speedX = (Math.min(event.accelerationIncludingGravity.x/2,maxSpeed));
+	myGamePiece.speedX = (Math.min(event.accelerationIncludingGravity.x,maxSpeed));
 	}else{
-     myGamePiece.speedX = (Math.max(event.accelerationIncludingGravity.x/2,minSpeed));
+     myGamePiece.speedX = (Math.max(event.accelerationIncludingGravity.x,minSpeed));
    }}
 }
 
