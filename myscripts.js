@@ -562,6 +562,8 @@ function fullscreen(){
 		  }
 		  element = document.getElementById("start")
 		  element.parentNode.removeChild(element);
+		  element = document.getElementById("pressText")
+		  element.parentNode.removeChild(element);
 		  startGame();
 		  var orient = window.screen.orientation;
 		  orient.lock(orient.type);
