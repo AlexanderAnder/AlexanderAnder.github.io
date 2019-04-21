@@ -28,7 +28,7 @@ var deadlyRight = false;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"navy", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
 	gamePieceHeight = myGamePiece.height;
 	gamePieceWidth = myGamePiece.width;
 	checkAcc();
@@ -46,7 +46,7 @@ var myGameArea = {
     this.canvas.width = window.innerWidth; 
 	gameWidth = this.canvas.width;
 	if(navigator.userAgent.match(/iPad/i) ||navigator.userAgent.match(/iPhone/i)){
-		this.canvas.height = window.screen.availHeight;
+		this.canvas.height = window.innerHeight;
 	}else{
     this.canvas.height = window.screen.availHeight;
 	}
@@ -547,6 +547,8 @@ function fullscreen(){
 	if(navigator.userAgent.match(/iPad/i) ||navigator.userAgent.match(/iPhone/i)){
           element = document.getElementById("start")
 		  element.parentNode.removeChild(element);
+		  elemente = document.getElementById("pressText")
+		  elemente.parentNode.removeChild(elemente);
 		  startGame();
     } else{
         var el = document.documentElement;
@@ -562,8 +564,8 @@ function fullscreen(){
 		  }
 		  element = document.getElementById("start")
 		  element.parentNode.removeChild(element);
-		  element = document.getElementById("pressText")
-		  element.parentNode.removeChild(element);
+		  elemente = document.getElementById("pressText")
+		  elemente.parentNode.removeChild(elemente);
 		  startGame();
 		  var orient = window.screen.orientation;
 		  orient.lock(orient.type);
