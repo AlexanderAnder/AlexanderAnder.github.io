@@ -28,7 +28,7 @@ var deadlyRight = false;
 
 //Startet das Spiel mit dem Spielfeld 
 function startGame() {
-	myGamePiece = new component(10,10,"gold", (window.innerWidth)/2,0);
+	myGamePiece = new component(10,10,"navy", (window.innerWidth)/2,0);
 	gamePieceHeight = myGamePiece.height;
 	gamePieceWidth = myGamePiece.width;
 	checkAcc();
